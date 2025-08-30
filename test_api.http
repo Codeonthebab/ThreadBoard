@@ -1,0 +1,19 @@
+#회원가입
+POST http://127.0.0.1:5001/userProc
+Content-Type: application/json
+
+{
+"username" : "test",
+"password" : "q1w2e3r4",
+"email" : "test@exam.com"
+}
+
+######################################
+#사용자 로그인
+POST http://127.0.0.1:5001/login
+Content-Type: application/json
+
+{
+    "username": "test",
+    "password": "q1w2e3r4"
+}
