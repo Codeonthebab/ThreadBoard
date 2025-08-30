@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt #Bcrypt
@@ -65,11 +65,11 @@ def register():
         return jsonify({"Error" : "이미 존재하는 사용자의 이름 또는 이메일입니다."}), 409 #실패
     
     # 비밀번호 해싱 시키기
-    hashed_password = bcrypt.generate_pasword_hash(password).decode('utf-8')
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
     
     # 사용자 생성 및 DB에 추가시킴
     new_user = User(username=username, password=hashed_password, email=email)
     db.session.add(new_user)
     db.session.commit()
 
-    return jsonify({"Message" : f"'{username}'이(가) 회원가입되었습니다."}), 201 #성공
+    return jsonify({"message" : f"'{username}'이(가) 회원가입되었습니다."}), 201 #성공
