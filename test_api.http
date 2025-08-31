@@ -17,3 +17,13 @@ Content-Type: application/json
     "username": "test",
     "password": "q1w2e3r4"
 }
+
+#####################################
+#스레스 생성
+POST http://127.0.0.1:5001/threads
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3NTY2NTk1ODR9.Lxp5uhV5jK6nFqll_82cYXfA5UhGHL2o2REVUCpcPJM
+
+{
+    "title": "테스트 스레드"
+}

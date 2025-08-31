@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
+from functools import wraps
 import datetime
 import jwt
 
@@ -76,7 +77,7 @@ def register():
 
     return jsonify({"message" : f"'{username}'이(가) 회원가입되었습니다."}), 201 #성공
 
-# 로그인 API
+# 로그인 API (JWT Token 활용)
 @app.route('/login', methods=['POST'])
 def login() :
     data = request.json
@@ -104,3 +105,42 @@ def login() :
         # 인증 실패
         return jsonify({"error": "잘못된 사용자, 비밀번호입니다."}), 401
 
+# JWT 토큰 검사 데코레이터 (어디 들어갈 때마다 확인하는 일종의 티켓)
+def token_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        token = None
+        # 클라이언트가 요청한 Authorization 확인
+        if 'Authorization' in request.headers:
+            token = request.headers['Authorization'].split(" ")[1]
+        
+        if not token:
+            return jsonify({'error': '토큰 없음'}), 401 
+        
+        try:
+            #토큰 유효성 검사하는 디코딩
+            data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
+            #토큰 내에서 user_id를 이용해 사용자 정보를 DB에서 조회
+            current_user = User.query.get(data['user_id'])
+        except:
+            return jsonify({'error': '유효하지 않는 토큰'}), 401
+        
+        return f(current_user, *args, **kwargs)
+    return decorated_function
+
+# 스레드 생성 API (로그인 필요)
+@app.route('/threads', methods=['POST'])
+@token_required #이 데코레이터는 토큰 검사 전용 데코레이터! 붙이면 이제 검사하는거
+def create_thread(current_user):
+    data = request.json
+    title = data.get('title')
+
+    if not title:
+        return jsonify({'error': '제목을 입력해주세요.'}), 400
+    
+    # 로그인 사용자의 ID를 사용, 스레드 생성
+    new_thread = Thread(title=title, user_id=current_user.id)
+    db.session.add(new_thread)
+    db.session.commit()
+
+    return jsonify({'message': f"'{current_user.username}'님이 새 스레드를 생성했습니다."}), 201
