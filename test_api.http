@@ -22,8 +22,11 @@ Content-Type: application/json
 #스레스 생성
 POST http://127.0.0.1:5001/threads
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3NTY2NTk1ODR9.Lxp5uhV5jK6nFqll_82cYXfA5UhGHL2o2REVUCpcPJM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3NTY4MzI3OTl9.aYZ94RXiXCI8x_WvKm-r6u9laef10jMvxv1DxaxqVAo
 
 {
     "title": "테스트 스레드"
 }
+######################################
+#스레드 조회
+GET http://127.0.0.1:5001/threads/1

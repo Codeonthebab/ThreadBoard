@@ -39,6 +39,10 @@ class Thread (db.Model):
     title = db.Column(db.String(100), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+# 관계 설정 추가함 
+# (POST모델과 관계, 'thread'라는 객체에서 .posts 속성을 통해 연결된 모든 Post객체들의 리스트에 접근이 가능함)
+    posts=db.relationship('Post', backref='thread', lazy=True)
+
 
 # 게시물 Post
 class Post (db.Model):
@@ -144,3 +148,34 @@ def create_thread(current_user):
     db.session.commit()
 
     return jsonify({'message': f"'{current_user.username}'님이 새 스레드를 생성했습니다."}), 201
+
+# 특정 스레드, 모든 게시물 조회 API
+@app.route('/threads/<int:thread_id>', methods=['GET'])
+def get_thread_with_posts(thread_id):
+    #URL에 되있는 ID를 이용해 특정 스레드 조회함
+    thread = Thread.query.get(thread_id)
+
+    if not thread:
+        return jsonify({"error": "해당 스레드를 찾을 수 없습니다."}), 404
+    
+    # 스레드 정보를 딕셔너리로 변환하는 코드
+    thread_data = {
+        'id': thread.id,
+        'title': thread.title,
+        'created_at': thread.created_at.isoformat(),
+        'user_id': thread.user_id
+    }
+
+    # 딕셔너리에 정의된 것들을 이용, 모든 게시물 조회
+    posts_data=[{
+        'id': post.id,
+        'content': post.content,
+        'created_at': post.created_at.isoformat(),
+        'user_id': post.user_id
+    } for post in thread.posts]
+
+    # 스레드 정보 게시물 목록 반환 시킴
+    return jsonify({
+        "thread": thread_data,
+        "posts": posts_data
+    })
