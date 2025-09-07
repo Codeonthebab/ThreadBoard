@@ -1,5 +1,10 @@
 {
+  "language": "Language",
   "welcome": "Welcome to the Thread Board!",
   "information": "Let's talk together!",
-  "new_thread": "Create New Thread"
+  "new_thread": "Create New Thread",
+  "login": "Login",
+  "signup": "Sign-up",
+  "id": "ID",
+  "password": "Password"
 }

@@ -1,5 +1,10 @@
 {
+  "language": "言語変更",
   "welcome": "スレッド掲示板へようこそ！",
   "information": "一緒に話をしてみましょう！",
-  "new_thread": "新規スレッド作成"
+  "new_thread": "新規スレッド作成",
+  "login": "ローグイン",
+  "signup": "会員登録",
+  "id": "アイディー",
+  "password": "パスワード"
 }
