@@ -4,7 +4,7 @@ import App from './App.tsx';
 import './index.css';
 import { AuthProvider } from './contexts/AuthContext.tsx';
 import { BrowserRouter } from 'react-router-dom'; 
-import './i18next';
+import './i18next.ts';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
