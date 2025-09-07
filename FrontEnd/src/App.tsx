@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
-import insertThread from './pages/insertThread';
-import MainPage from './pages/mainpage';
+import insertThread from './pages/insertThread.tsx';
+import MainPage from './pages/mainpage.tsx';
 
 function App() {
 
