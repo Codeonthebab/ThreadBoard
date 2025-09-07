@@ -8,7 +8,9 @@ function App() {
 
   return (
     <div className="App">
-      <header><LanguageSwitcher/></header>
+      <header className="app-header-bar">
+        <LanguageSwitcher/>
+      </header>
       <body>
         <Routes>
           <Route path="/" element={<MainPage />} />

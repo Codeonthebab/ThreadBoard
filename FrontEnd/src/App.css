@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+.headerLine {
+  background-color: #282c34;
+  display: flex;
+  size: 100px;
+}
+
+header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+.app-header-bar {
+  background-color: #282c34;
+  padding:10px;
+  display: flex;
+  justify-content: flex-end; /* 자식요소 위치 오른쪽 끝으로 정렬*/
+}
