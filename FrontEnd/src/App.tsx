@@ -1,10 +1,14 @@
 import { useTranslation } from 'react-i18next';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
+import './pages/insertThread';
+import insertThread from './pages/insertThread';
+import MainPage from './pages/mainpage';
 
 function App() {
 
-  // {번역함수, 언어변경 등의 인스턴스}
-  const {t,i18n} = useTranslation();
+  // {언어변경 등의 인스턴스}
+  const {i18n} = useTranslation();
 
   return (
     <div className="App">
@@ -16,11 +20,10 @@ function App() {
         </header>
       </div>
       <body>
-        <h1>{t('welcome')}</h1>
-        <p>{t('information')}</p>
-        <p>
-          <button onClick={()=> insertThread()}>{t('new_thread')}</button>
-        </p>
+         <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/insert-thread" element={<insertThread />} />
+        </Routes>
       </body>
       </div>
   );
