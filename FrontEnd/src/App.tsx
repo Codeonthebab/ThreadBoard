@@ -1,7 +1,7 @@
 import { Routes, Route, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "./App.css";
-import "./pages/insertThread.tsx";
+import InsertThread from "./pages/insertThread.tsx";
 import Register from "./pages/RegisterPage.tsx";
 import MainPage from "./pages/MainPage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
@@ -23,7 +23,7 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/insert-thread" element={<insertThread />} />
+          <Route path="/insert-thread" element={<InsertThread />} />
           <Route path="/signup" element={<Register/>}/>
           <Route path="/login" element={<LoginPage/>}/>
         </Routes>
