@@ -34,10 +34,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
 
     // Context를 통해 전달할 값, "login, logout" 함수를 객체로 묶어놓음
-    const value = { token, login, logout };
-
+    const isAuthenticated = !!token; // 토큰 유무 확인 후, 로그인 상태 함수를 계산
+    const value = { token, login, logout, isAuthenticated };
+    
     return (
-        <AuthContext.Provider value={{ value }}>
+        <AuthContext.Provider value={ value }>
             {children}
         </AuthContext.Provider>
     );
