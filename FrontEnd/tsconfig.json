@@ -1,4 +1,3 @@
-// /FrontEnd/tsconfig.json
 {
   "compilerOptions": {
     "target": "es5",

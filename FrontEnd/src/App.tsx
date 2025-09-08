@@ -1,11 +1,11 @@
 import { Routes, Route, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "./App.css";
-import InsertThread from "./pages/insertThread.tsx";
-import Register from "./pages/RegisterPage.tsx";
-import MainPage from "./pages/MainPage.tsx";
-import LoginPage from "./pages/LoginPage.tsx";
-import LanguageSwitcher from "./contexts/LanguageSwitcher.tsx";
+import InsertThread from "./pages/insertThread";
+import Register from "./pages/RegisterPage";
+import MainPage from "./pages/MainPage";
+import LoginPage from "./pages/LoginPage";
+import LanguageSwitcher from "./contexts/LanguageSwitcher";
 
 
 function App() {
