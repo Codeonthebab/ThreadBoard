@@ -21,7 +21,7 @@ function Register() {
 
     try {
       // 파이썬 백엔드 APIdp fetch로 POST 요청
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/userProc`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/userProc`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
