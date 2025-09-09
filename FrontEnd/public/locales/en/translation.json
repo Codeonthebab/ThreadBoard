@@ -4,7 +4,9 @@
   "information": "Let's talk together!",
   "new_thread": "Create New Thread",
   "login": "Login",
+  "logout": "Logout",
   "signup": "Sign-up",
   "id": "ID",
-  "password": "Password"
+  "password": "Password",
+  "welcomeuser": "! Welcome!"
 }

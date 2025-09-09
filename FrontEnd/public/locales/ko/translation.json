@@ -4,7 +4,9 @@
     "information": "함께 이야기를 나누어보세요!",
     "new_thread": "새 스레드 생성",
     "login": "로그인",
+    "logout": "로그아웃",
     "signup": "회원가입",
     "id": "아이디",
-    "password": "비밀번호"
+    "password": "비밀번호",
+    "welcomeuser": "님! 환영합니다!"
 }
