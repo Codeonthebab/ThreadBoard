@@ -19,7 +19,7 @@ function LoginState() {
             {user ? ( // if 문 같은거, useAuth에 user 정보를 담아왔다면
         <div>
             <span>{user.username}{t('welcomeuser')}</span>
-            <button onClick={handleLogout} style={{ marginLeft: '10px' }}></button>
+            <button onClick={handleLogout} style={{ marginLeft: '10px' }}>{t('logout')}</button>
         </div>
         ) : ( // useAuth에 user 정보 없다면?
             <nav> 
