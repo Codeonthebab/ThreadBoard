@@ -15,8 +15,8 @@ function LoginPage() {
   const { t } = useTranslation();
 
   // 로그인 useState로 담아두기
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
 
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ function LoginPage() {
         await response.json();
 
       if (response.ok) {
-        // 응답 성공 시 토큰 저장
+        // 응답 성공 시 토큰을 Context에 저장
         login((data as LoginSuccessResponse).token);
         navigate("/");
       } else {
