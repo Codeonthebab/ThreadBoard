@@ -100,6 +100,7 @@ def login() :
         # 비밀번호 일치하면 JWT 생성
         payload = {
             'user_id': user.id,
+            'username': user.username,
             'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1) #1시간 후 티켓 만료 시킴
         }
         token = jwt.encode(payload, app.config['SECRET_KEY'], algorithm='HS256')

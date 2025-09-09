@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { jwtDecode } from 'jwt-decode';
 
 interface UserPayload {
+    user_id: number;
     username: string;
 }
 
