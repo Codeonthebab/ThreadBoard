@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 // 훅을 커스텀해놓음 : 다른 컴포넌트에서 useAuth로 Context 값을 쉽게 쓸수 있게 캡슐화 시켜놓는 것
 export const useAuth = () => {
     const context = useContext(AuthContext);
-    if (!context) {
+    if (context === undefined) {
         throw new Error('useAuth must be used within an AuthProvider');
     }
     return context;
