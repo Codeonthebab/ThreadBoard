@@ -25,6 +25,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (storedToken) {
             try {
                 const decodedUser = jwtDecode<UserPayload>(storedToken);
+                console.log('User from localStorage: ', decodedUser);
                 setToken(storedToken);
                 setUser(decodedUser);
             } catch (error) {
@@ -38,6 +39,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const login = (newToken: string) => {
         try {
             const decodedUser = jwtDecode<UserPayload>(newToken);
+            console.log('User from login: ', decodedUser);
             localStorage.setItem('authToken', newToken); // localStorage에 토큰 저장함
             setToken(newToken); // 새로운 토큰 발급하고 리액트의 state에 상태 업데이트 함
             setUser(decodedUser); // 디코딩한 사용자 정보 저장
