@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail, Message
 from functools import wraps
+from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 import datetime
 import jwt
 import os
@@ -20,6 +21,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 #데이터베이스 객체 생성
 db = SQLAlchemy(app)
+
+# 이메일 인증을 위한 임시 토큰 생성
+s = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 
 #메인 페이지 라우팅 (서버가 잘 켜졌는지 확인하는 용도)
 @app.route('/')
