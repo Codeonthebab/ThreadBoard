@@ -8,5 +8,6 @@
   "signup": "会員登録",
   "id": "アイディー",
   "password": "パスワード",
-  "welcomeuser": "様! ようこそ!"
+  "welcomeuser": "様! ようこそ!",
+  "location": "国 (アメリカ/韓国/日本)"
 }

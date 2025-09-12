@@ -8,5 +8,6 @@
     "signup": "회원가입",
     "id": "아이디",
     "password": "비밀번호",
-    "welcomeuser": "님! 환영합니다!"
+    "welcomeuser": "님! 환영합니다!",
+    "location": "지역 (미국/한국/일본)"
 }

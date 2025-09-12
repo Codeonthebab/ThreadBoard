@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-type RegisterSuccecssResponse={
-    message: string;
+type RegisterSuccecssResponse = {
+  message: string;
 };
 
-type RegisterErrorResponse={
-    Error: string;
+type RegisterErrorResponse = {
+  Error: string;
 };
 
 function Register() {
@@ -16,6 +16,7 @@ function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [location, setlocation] = useState("");
 
   // 입력된 폼이 실행될 함수
   const handleSubmit = async (event: React.FormEvent) => {
@@ -29,10 +30,10 @@ function Register() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password, email }),
+        body: JSON.stringify({ username, password, email, location }),
       });
 
-      const data : RegisterSuccecssResponse | RegisterErrorResponse = await response.json();
+      const data: RegisterSuccecssResponse | RegisterErrorResponse = await response.json();
 
       if (response.ok) {
         alert((data as RegisterSuccecssResponse).message);
@@ -76,6 +77,17 @@ function Register() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
+      </div>
+
+      <div>
+        <label>{t('location')} : </label>
+        <form>
+          <select name="location" value={location}>
+            <option value="Korea">대한민국</option>
+            <option value="United States">United States</option>
+            <option value="Japan">日本</option>
+          </select>
+        </form>
       </div>
 
       <button type="submit">{t('signup')}</button>

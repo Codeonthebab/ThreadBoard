@@ -8,5 +8,6 @@
   "signup": "Sign-up",
   "id": "ID",
   "password": "Password",
-  "welcomeuser": "! Welcome!"
+  "welcomeuser": "! Welcome!",
+  "location": "Country (United State/Republic of Korea/Japan)"
 }
