@@ -18,6 +18,10 @@ function Register() {
   const [email, setEmail] = useState("");
   const [location, setlocation] = useState("");
 
+  // 메일 폼 제출 확인
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [message, setMessage] = useState(""); //서버 메세지 저장
+
   // 입력된 폼이 실행될 함수
   const handleSubmit = async (event: React.FormEvent) => {
     // 폼 제출 시 페이지 새로고침 막기
@@ -36,7 +40,8 @@ function Register() {
       const data: RegisterSuccecssResponse | RegisterErrorResponse = await response.json();
 
       if (response.ok) {
-        alert((data as RegisterSuccecssResponse).message);
+        setMessage((data as RegisterSuccecssResponse).message);
+        setIsSubmitted(true);
       } else {
         alert(`오류: ${(data as RegisterErrorResponse).Error}`);
       }
@@ -45,6 +50,16 @@ function Register() {
       alert("서버와 통신 중 문제가 발생했습니다.");
     }
   };
+
+  if (isSubmitted) {
+    return (
+      <>
+      <h3>{t('signup_success_title')}</h3>
+      <p>{message}</p>
+      <p>{t('check_your_email')}</p>
+      </>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -80,14 +95,12 @@ function Register() {
       </div>
 
       <div>
-        <label>{t('location')} : </label>
-        <form>
-          <select name="location" value={location}>
-            <option value="Korea">대한민국</option>
-            <option value="United States">United States</option>
+        <label>{t('location')} : </label>       
+          <select name="location" value={location} onChange={(e)=> setlocation(e.target.value)}>
+            <option value="Korea" >대한민국</option>
+            <option value="United State">United States</option>
             <option value="Japan">日本</option>
           </select>
-        </form>
       </div>
 
       <button type="submit">{t('signup')}</button>
