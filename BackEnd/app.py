@@ -121,7 +121,7 @@ def register():
         return jsonify({"Error" : "이메일 발송 중 오류가 발생했습니다."}), 500
 
 # 이메일 인증 토큰 API
-@app.route('/verify/<token>', method=['GET'])
+@app.route('/verify/<token>', methods=['GET'])
 def verify_email(token):
     try :
         # 토큰 인증 이메일 추출

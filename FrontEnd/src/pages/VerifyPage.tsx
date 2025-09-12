@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useParams, Link } from 'react-router-dom';
 
 function VerifyPage() {
+    
     const {t} = useTranslation();
     const { token } = useParams<{ token : string }> (); // URL 파라미터 값에서 토큰 겟
     const [verificationStatus, setVerificationStatus] = useState<string> ('인증을 확인하는 중입니다.');
