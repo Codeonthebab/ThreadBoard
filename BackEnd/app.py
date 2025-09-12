@@ -75,9 +75,10 @@ def register():
     username = data.get('username')
     password = data.get('password')
     email = data.get('email')
+    location = data.get('location')
 
     # 기본 유효성 검사 : 모든 필드 누락
-    if not username or not email or not password:
+    if not username or not email or not password or not location :
         return jsonify({"Error" : "모든 필드를 입력해주세요."}), 400 #실패
     
     # 사용자 및 이메일 중복 확인하기
@@ -164,6 +165,11 @@ def login() :
 
     # 주워온 유저 정보가 존재하고, 비밀번호는 일치하는지 확인하기
     if user and bcrypt.check_password_hash(user.password, password):
+        
+        # 사용자가 인증됐을 경우를 확인
+        if not user.is_verified:
+            return jsonify({"Error": "이메일 인증이 완료되지 않은 계정입니다."}), 403
+        
         # 비밀번호 일치하면 JWT 생성
         payload = {
             'user_id': user.id,
