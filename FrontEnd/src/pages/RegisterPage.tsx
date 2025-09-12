@@ -27,6 +27,9 @@ function Register() {
     // 폼 제출 시 페이지 새로고침 막기
     event.preventDefault();
 
+    // 오류 확인하기 위한 코드 한줄 필요한듯..
+    console.log("Connection to API URL : ", process.env.REACT_APP_API_BASE_URL);
+
     try {
       // 파이썬 백엔드 APIdp fetch로 POST 요청
       const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/userProc`, {
