@@ -16,7 +16,7 @@ function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [location, setlocation] = useState("");
+  const [location, setlocation] = useState("Korea");
 
   // 메일 폼 제출 확인
   const [isSubmitted, setIsSubmitted] = useState(false);

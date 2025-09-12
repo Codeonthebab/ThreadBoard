@@ -89,9 +89,9 @@ def register():
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
     
     # 사용자 생성 및 DB에 추가시킴
-    new_user = User(username=username, password=hashed_password, email=email)
-    db.session.add(new_user)
-    db.session.commit()
+    new_user = User(username=username, password=hashed_password, email=email, location=location)
+    #db.session.add(new_user)
+    #db.session.commit() 이메일 인증하면서 새로운 유저 최종 추가하는걸로 변경
 
     try :
         # 이메일 토큰 관련
