@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type RegisterSuccecssResponse={
     message: string;
@@ -9,6 +10,8 @@ type RegisterErrorResponse={
 };
 
 function Register() {
+  const { t } = useTranslation();
+
   // 각 입력 값을 관리할 State를 생성
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -44,9 +47,9 @@ function Register() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h3>회원가입</h3>
+      <h3>{t('signup')}</h3>
       <div>
-        <label>아이디 : </label>
+        <label>{t('id')} : </label>
         <input
           type="text"
           value={username}
@@ -56,7 +59,7 @@ function Register() {
       </div>
 
       <div>
-        <label>비밀번호 : </label>
+        <label>{t('password')} : </label>
         <input
           type="password"
           value={password}
@@ -66,7 +69,7 @@ function Register() {
       </div>
 
       <div>
-        <label>이메일 : </label>
+        <label>{t('email')} : </label>
         <input
           type="email"
           value={email}
@@ -75,7 +78,7 @@ function Register() {
         />
       </div>
 
-      <button type="submit">가입하기</button>
+      <button type="submit">{t('signup')}</button>
     </form>
   );
 }
