@@ -34,6 +34,7 @@ class User (db.Model):
     password = db.Column(db.String(200), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     is_verified = db.Column(db.Boolean, nullable=False, default=False)
+    location = db.Column(db.String(100), nullable=False, default=False)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
 # Flask-Mail 설정
