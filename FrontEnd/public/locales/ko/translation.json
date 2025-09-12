@@ -9,5 +9,7 @@
     "id": "아이디",
     "password": "비밀번호",
     "welcomeuser": "님! 환영합니다!",
-    "location": "지역 (미국/한국/일본)"
+    "location": "지역 (미국/한국/일본)",
+    "email_verify": "이메일 인증",
+    "loginTopage": "로그인 페이지로 이동"
 }

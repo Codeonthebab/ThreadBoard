@@ -9,5 +9,7 @@
   "id": "ID",
   "password": "Password",
   "welcomeuser": "! Welcome!",
-  "location": "Country (United State/Republic of Korea/Japan)"
+  "location": "Country (United State/Republic of Korea/Japan)",
+  "email_verify": "Email Verified",
+  "loginTopage": "Go to Login Page"
 }

@@ -9,5 +9,7 @@
   "id": "アイディー",
   "password": "パスワード",
   "welcomeuser": "様! ようこそ!",
-  "location": "国 (アメリカ/韓国/日本)"
+  "location": "国 (アメリカ/韓国/日本)",
+  "email_verify": "イーメール認証",
+  "loginTopage": "ログインページへ移動"
 }
