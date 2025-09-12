@@ -2,9 +2,11 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
+from flask_mail import Mail, Message
 from functools import wraps
 import datetime
 import jwt
+import os
 
 # Flask 앱 생성 & CORS 설정
 app = Flask(__name__)
@@ -31,7 +33,17 @@ class User (db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
+    is_verified = db.Column(db.Boolean, nullable=False, default=False)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+
+# Flask-Mail 설정
+app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER')
+app.config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
+app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', 'true').lower() in ['true', 'on', '1']
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME')
+mail = Mail(app) #객체 생성해놓기
 
 # 스레드 Thread
 class Thread (db.Model):
@@ -79,7 +91,34 @@ def register():
     db.session.add(new_user)
     db.session.commit()
 
-    return jsonify({"message" : f"'{username}'이(가) 회원가입되었습니다."}), 201 #성공
+    try :
+        # 이메일 토큰 관련
+        token = s.dumps(email, salt = 'email-confirm-salt')
+        
+        # 인증 링크 생성 (토큰 발급한거 저기로)
+        confirm_url = f"https://thread-board.vercel.app/verify/{token}"
+
+        # 이메일 내용
+        subject = "[ThreadBoard] 회원가입 인증 메일"
+        html = f"<p> 아래 링크를 클릭하셔서 회원가입을 완료하세요 </p> <br> <p> <a href ='{confirm_url}'>{confirm_url}</a></p>"
+        
+        # 메세지 객체 생성
+        msg = Message(subject, recipients=[email], html=html)
+
+        # 이메일 발송
+        mail.send(msg)
+
+        # 이메일 발송 성공 후 사용자 정보를 DB에 저장
+        db.session.add(new_user)
+        db.session.commit()
+    
+        return jsonify({"message" : f"'{username}'이(가) 회원가입되었습니다. 이메일을 확인하여 계정이 인증되었습니다. "}), 201 #성공
+    
+    except Exception as e:
+        db.session.rollback()
+        print(e)
+        return jsonify({"Error" : "이메일 발송 중 오류가 발생했습니다."}), 500
+    
 
 # 로그인 API (JWT Token 활용)
 @app.route('/login', methods=['POST'])
