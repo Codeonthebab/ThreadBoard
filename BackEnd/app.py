@@ -119,7 +119,34 @@ def register():
         db.session.rollback()
         print(e)
         return jsonify({"Error" : "이메일 발송 중 오류가 발생했습니다."}), 500
+
+# 이메일 인증 토큰 API
+@app.route('/verify/<token>', method=['GET'])
+def verify_email(token):
+    try :
+        # 토큰 인증 이메일 추출
+        email = s.loads(token, salt='email-confirm-salt', max_age=3600)
+    except SignatureExpired:
+        # 토큰 만료의 경우
+        return jsonify({"Error": "인증 링크 만료"}), 400
+    except Exception as e:
+        # 그 외 토큰 오류 시
+        return jsonify({"Error": "유효하지 않은 인증 링크입니다."}), 400
     
+    user = User.query.filter_by(email=email).first()
+    
+    if not user:
+        return jsonify({"Error": "사용자를 찾을 수 없습니다."}), 404
+    
+    if user.is_verified:
+        return jsonify({"message": "이미 인증된 계정입니다."}), 200
+    
+    user.is_verified = True
+    db.session.commit()
+    
+    return jsonify({"message": "성공적으로 이메일 인증 완료되었습니다."}), 200
+        
+
 
 # 로그인 API (JWT Token 활용)
 @app.route('/login', methods=['POST'])
