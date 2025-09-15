@@ -20,7 +20,7 @@ class Thread (db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 # 관계 설정 추가함 
 # (POST모델과 관계, 'thread'라는 객체에서 .posts 속성을 통해 연결된 모든 Post객체들의 리스트에 접근이 가능함)
-    posts=db.relationship('Post', backref='thread', lazy=True)
+    posts=db.relationship('Post', backref='thread', lazy=True, cascade="all, delete-orphan")
 
 # 게시물 Post
 class Post (db.Model):
