@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
+import './insertThread.css';
 
 interface CreateThreadResponse {
   message: string;
@@ -56,7 +57,8 @@ function insertThread() {
   };
 
   return (
-    <div>
+    <div className= "board-background">
+      <div className="writing-paper">
       <h1>{t('new_thread')}</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -84,8 +86,9 @@ function insertThread() {
 
         {error && <p style={{ color: 'red'}}>{error}</p>}
         <button type="submit">{t('create_thread')}</button>
-        
+
       </form>
+      </div>
     </div>
   );
 }

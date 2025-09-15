@@ -1,0 +1,87 @@
+/* https://codepen.io/sadness97/pen/ZEXKqgM 에서 가져온 CSS */
+/* Google Fonts에서 손글씨 폰트 가져오기 */
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+
+/* 전체 페이지 배경 (코르크 보드) */
+.board-background {
+  background-image: url('https://yesterweb.org/img/bb/cork.png');
+  min-height: 100vh; /* 화면 전체 높이를 채우도록 설정 */
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 글쓰기 폼을 감싸는 종이 스타일 */
+.writing-paper {
+  font-family: 'Nanum Pen Script', cursive; /* 손글씨 폰트 적용 */
+  font-size: 1.5rem; /* 폰트 크기 키우기 */
+  background-image: url('https://yesterweb.org/img/bb/lined_paper.png');
+  background-color: #FAFAFA;
+  padding: 30px 40px;
+  width: 100%;
+  max-width: 700px; /* 종이 최대 너비 */
+  min-height: 800px;
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.2); /* 종이 그림자 효과 */
+  transform: rotate(-1.5deg); /* 살짝 기울이기 */
+}
+
+.writing-paper h1 {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+/* 폼 스타일 */
+.writing-paper form div {
+  margin-bottom: 25px;
+}
+
+.writing-paper label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.writing-paper input[type="text"],
+.writing-paper textarea {
+  font-family: 'Nanum Pen Script', cursive; /* 입력창에도 폰트 적용 */
+  font-size: 1.5rem;
+  width: 100%;
+  border: none;
+  background-color: transparent; /* 배경 투명하게 */
+  border-bottom: 2px dotted #aaa; /* 밑줄 스타일 */
+  padding: 10px 5px;
+  outline: none; /* 클릭 시 테두리 제거 */
+  resize: none; /* textarea 크기 조절 비활성화 */
+}
+
+.writing-paper textarea {
+  height: 350px; /* 내용 영역 높이 */
+}
+
+.writing-paper button {
+  font-family: 'Nanum Pen Script', cursive;
+  font-size: 1.8rem;
+  background-color: #70a1ff;
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: block;
+  margin: 20px auto 0;
+  transition: background-color 0.2s;
+}
+
+.writing-paper button:hover {
+  background-color: #5383e8;
+}
+
+.writing-paper .error-message {
+  color: #d63031;
+  text-align: center;
+  font-size: 1.3rem;
+  margin-top: 15px;
+}
