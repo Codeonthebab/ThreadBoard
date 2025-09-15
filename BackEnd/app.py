@@ -253,13 +253,28 @@ def create_thread(current_user):
 
     if not title:
         return jsonify({'error': '제목을 입력해주세요.'}), 400
-    
+
     # 로그인 사용자의 ID를 사용, 스레드 생성
     new_thread = Thread(title=title, user_id=current_user.id)
     db.session.add(new_thread)
-    db.session.commit()
-
-    return jsonify({'message': f"'{current_user.username}'님이 새 스레드를 생성했습니다."}), 201
+    db.session.flush() #잠시 세션에 담아두는 것
+    
+    ip_address = request.headers.get('X-Forwarded-For', request.remote_addr)
+    
+    first_post = Post(
+        content=content,
+        thread_id=new_thread.id,
+        user_id=current_user.id,
+        ip=ip_address
+    )
+    
+    db.session.add(first_post)
+    db.session.commit() #최종 커밋
+    
+    return jsonify({
+        'message': f"'{current_user.username}'님이 새 스레드를 생성했습니다.",
+        'thread_id': new_thread.id
+        }), 201
 
 # 특정 스레드, 모든 게시물 조회 API
 @app.route('/threads/<int:thread_id>', methods=['GET'])
