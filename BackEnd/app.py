@@ -9,17 +9,15 @@ from functools import wraps
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 import datetime
 import jwt
-import os
+
 
 # Flask 앱 생성 & CORS 설정
 app = Flask(__name__)
 CORS(app, origins=["https://thread-board.vercel.app"], supports_credentials=True)
 bcrypt = Bcrypt(app)
-app.config['SECRET_KEY']='holyMoly_4d23krgwtf_holydoly_a1s11b32nbf' # return 부분은 복잡한 문자열로 만들어두는게 좋다
 
-#데이터베이스 설정 : DB(PostgreSQL)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+
 
 #데이터베이스 객체 생성
 db = SQLAlchemy(app)
@@ -120,7 +118,7 @@ def register():
             html_content=f"<p> 아래 링크를 클릭하셔서 회원가입을 완료하세요</p> <br> <p> <a href='{confirm_url}'>{confirm_url}</a></p>"
         )
         
-        sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+        
         response = sg.send(message)
         
         # 응답 코드 2XX 아니면 에러
