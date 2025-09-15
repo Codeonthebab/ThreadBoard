@@ -1,12 +1,11 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt
+
 #from flask_mail import Mail, Message
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from functools import wraps
-from itsdangerous import URLSafeTimedSerializer, SignatureExpired
+import SignatureExpired
 
 import jwt
 
@@ -19,8 +18,7 @@ bcrypt = Bcrypt(app)
 
 
 
-#데이터베이스 객체 생성
-db = SQLAlchemy(app)
+
 
 # 이메일 인증을 위한 임시 토큰 생성
 s = URLSafeTimedSerializer(app.config['SECRET_KEY'])
