@@ -126,7 +126,8 @@ def register():
         # 응답 코드 2XX 아니면 에러
         if response.status_code >= 300:
             # SendGrid에 상태에러 메세지 로그 기록
-            print(f"SendGrid Error: {response.body}")
+            print(f"SendGrid API Error Status Code: {response.status_code}")
+            print(f"SendGrid API Error Body: {response.body}")
             raise Exception("SendGrid API Error")
         
         # 이메일 내용 // Render 정책으로 SendGrid로 변경
@@ -147,7 +148,13 @@ def register():
     
     except Exception as e:
         db.session.rollback()
-        print(e)
+       
+        # 에러 객체 로그, 상세한 내용 출력
+        print(f"An exception of type {type(e).__name__} occurred: {e}")
+        # 에러내용의 핵심 메세지 출력 시키는거
+        if hasattr(e, 'body'):
+            print(f"Error Body: {e.body}")
+            
         return jsonify({"Error" : "이메일 발송 중 오류가 발생했습니다."}), 500
 
 # 이메일 인증 토큰 API
