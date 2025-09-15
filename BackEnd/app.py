@@ -244,7 +244,7 @@ def token_required(f):
     return decorated_function
 
 # 스레드 생성 API (로그인 필요)
-@app.route('/thread/:id', methods=['POST'])
+@app.route('/threads', methods=['POST'])
 @token_required #이 데코레이터는 토큰 검사 전용 데코레이터! 붙이면 이제 검사하는거
 def create_thread(current_user):
     data = request.json

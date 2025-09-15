@@ -20,7 +20,8 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/thread/:id" element={<InsertThread />} />
+          <Route path="/insert-thread" element={<InsertThread />} />
+          {/* 나중에 상세 보드 보기 페이지 추가할 것 */}
           <Route path="/signup" element={<Register />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/verify/:token" element={<VerifyPage />} />
