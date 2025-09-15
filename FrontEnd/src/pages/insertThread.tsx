@@ -10,7 +10,7 @@ interface CreateThreadResponse {
 }
 
 
-function insertThread() {
+function InsertThread() {
 
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -93,4 +93,4 @@ function insertThread() {
   );
 }
 
-export default insertThread;
+export default InsertThread;
