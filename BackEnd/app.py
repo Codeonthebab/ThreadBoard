@@ -135,6 +135,7 @@ def verify_email(token):
         # 토큰 만료의 경우
         return jsonify({"Error": "인증 링크 만료"}), 400
     except Exception as e:
+        print(e)
         # 그 외 토큰 오류 시
         return jsonify({"Error": "유효하지 않은 인증 링크입니다."}), 400
     
@@ -204,7 +205,7 @@ def token_required(f):
             data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
             #토큰 내에서 user_id를 이용해 사용자 정보를 DB에서 조회
             current_user = User.query.get(data['user_id'])
-        except:
+        except Exception:
             return jsonify({'error': '유효하지 않는 토큰'}), 401
         
         return f(current_user, *args, **kwargs)
