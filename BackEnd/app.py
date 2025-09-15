@@ -16,7 +16,7 @@ bcrypt = Bcrypt(app)
 app.config['SECRET_KEY']='holyMoly_4d23krgwtf_holydoly_a1s11b32nbf' # return 부분은 복잡한 문자열로 만들어두는게 좋다
 
 #데이터베이스 설정 : DB(PostgreSQL)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://threadboard_user:EBjc41eLhJv5y1YadGTgm20MZ1xLpmVV@dpg-d2o8687diees73ema8c0-a.singapore-postgres.render.com/threadboard'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 #데이터베이스 객체 생성
