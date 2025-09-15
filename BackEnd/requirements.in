@@ -1,0 +1,15 @@
+# Flask & Web Framework Extensions
+Flask
+Flask-Cors
+Flask-SQLAlchemy
+Flask-Bcrypt
+Flask-Mail
+
+# JWT for token authentication
+PyJWT
+
+# Database Driver (PostgreSQL)
+psycopg2-binary
+
+# WSGI Server for deployment
+gunicorn
