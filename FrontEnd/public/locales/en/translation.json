@@ -3,6 +3,8 @@
   "welcome": "Welcome to the Thread Board!",
   "information": "Let's talk together!",
   "new_thread": "Create New Thread",
+  "content": "Content",
+  "create_thread": "Create Thread",
   "login": "Login",
   "logout": "Logout",
   "signup": "Sign-up",

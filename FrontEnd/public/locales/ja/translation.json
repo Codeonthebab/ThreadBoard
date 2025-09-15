@@ -3,6 +3,8 @@
   "welcome": "スレッド掲示板へようこそ！",
   "information": "一緒に話をしてみましょう！",
   "new_thread": "新規スレッド作成",
+  "content": "内容",
+  "create_thread": "スレッド作成",
   "login": "ローグイン",
   "logout": "ローグアウト",
   "signup": "会員登録",

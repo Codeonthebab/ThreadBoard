@@ -20,7 +20,7 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/insert-thread" element={<InsertThread />} />
+          <Route path="/thread/:id" element={<InsertThread />} />
           <Route path="/signup" element={<Register />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/verify/:token" element={<VerifyPage />} />
