@@ -13,3 +13,6 @@ psycopg2-binary
 
 # WSGI Server for deployment
 gunicorn
+
+#SendGrid for sending emails
+sendgrid
