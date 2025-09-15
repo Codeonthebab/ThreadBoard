@@ -71,6 +71,10 @@ class Post (db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     ip = db.Column(db.String(45), nullable=False)
 
+# Bender에서 portgre DB 연결, 테이블 생성
+with app.app_context():
+    db.create_all()
+
 
 # 회원가입 API
 @app.route('/userProc', methods=['POST'])
