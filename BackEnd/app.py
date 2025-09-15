@@ -249,6 +249,7 @@ def token_required(f):
 def create_thread(current_user):
     data = request.json
     title = data.get('title')
+    content = data.get('content')
 
     if not title:
         return jsonify({'error': '제목을 입력해주세요.'}), 400
