@@ -4,6 +4,10 @@ from flask_cors import CORS
 from config import Config
 from .extensions import db, bcrypt, init_serializer
 
+"""블루프린트 객체들 소환"""
+from .routes.auth import auth_bp
+from .routes.threads import threads_bp
+
 def create_app(config_class=Config):
     """App 함수들"""
     app = Flask(__name__)
@@ -22,9 +26,11 @@ def create_app(config_class=Config):
         db.create_all()
 
     # 5. 블루프린트(routes) 등록 (다음 단계에서 추가할 예정)
-    # from .routes.auth import auth_bp
-    # from .routes.threads import threads_bp
-    # app.register_blueprint(auth_bp)
-    # app.register_blueprint(threads_bp)
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(threads_bp)
 
+    def index():
+        return "<h1>백엔드 서버 동작 중! (*Flask API*)</h1>"
+    
     return app
+
