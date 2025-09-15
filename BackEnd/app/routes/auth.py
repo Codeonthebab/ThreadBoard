@@ -3,11 +3,12 @@ from functools import wraps
 import datetime
 import jwt
 import os
-from sendgrid import SendGridAPIClient, SignatureExpired
+from itsdangerous import URLSafeTimedSerializer, SignatureExpired
+from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
 """db, bcrypt, s 객체들과 USER 모델 불러오기"""
-from ..extensions import db, bcrypt, s
+from ..extensions import db, bcrypt
 from ..models import User
 
 #Blueprint 설정
@@ -40,6 +41,7 @@ def register():
 
     try :
         # 이메일 토큰 관련
+        s = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
         token = s.dumps(email, salt = 'email-confirm-salt')
         
         # 인증 링크 생성 (토큰 발급한거 저기로)
@@ -95,10 +97,13 @@ def register():
 def verify_email(token):
     try :
         # 토큰 인증 이메일 추출
+        s = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
         email = s.loads(token, salt='email-confirm-salt', max_age=3600)
+
     except SignatureExpired:
         # 토큰 만료의 경우
         return jsonify({"Error": "인증 링크 만료"}), 400
+    
     except Exception as e:
         print(e)
         # 그 외 토큰 오류 시

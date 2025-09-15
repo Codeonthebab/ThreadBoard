@@ -2,7 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 """config, extensions에서 설정 및 확장 모듈 불러오기"""
 from config import Config
-from .extensions import db, bcrypt, init_serializer
+from .extensions import db, bcrypt
 
 """블루프린트 객체들 소환"""
 from .routes.auth import auth_bp
@@ -19,7 +19,6 @@ def create_app(config_class=Config):
     # 확장 모듈들 초기화
     db.init_app(app)
     bcrypt.init_app(app)
-    init_serializer(app)
 
     # Bender에서 portgre DB 연결, 테이블 생성
     with app.app_context():
