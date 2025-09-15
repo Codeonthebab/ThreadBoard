@@ -1,5 +1,5 @@
-from flask import Flask, jsonify, request
-from flask_cors import CORS
+import jsonify, request
+
 
 #from flask_mail import Mail, Message
 from sendgrid import SendGridAPIClient
@@ -11,9 +11,7 @@ import jwt
 
 
 # Flask 앱 생성 & CORS 설정
-app = Flask(__name__)
-CORS(app, origins=["https://thread-board.vercel.app"], supports_credentials=True)
-bcrypt = Bcrypt(app)
+
 
 
 
@@ -39,9 +37,7 @@ def index():
 # app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME')
 # mail = Mail(app) #객체 생성해놓기
 
-# Bender에서 portgre DB 연결, 테이블 생성
-with app.app_context():
-    db.create_all()
+
 
 # SendGrid 이메일 설정
 
