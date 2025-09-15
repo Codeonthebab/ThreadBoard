@@ -2,7 +2,9 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
-from flask_mail import Mail, Message
+#from flask_mail import Mail, Message
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 from functools import wraps
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 import datetime
@@ -41,14 +43,14 @@ class User (db.Model):
     location = db.Column(db.String(100), nullable=False, default=False)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
-# Flask-Mail 설정
-app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER')
-app.config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
-app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', 'true').lower() in ['true', 'on', '1']
-app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
-app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
-app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME')
-mail = Mail(app) #객체 생성해놓기
+# # Flask-Mail 설정 // Render 정책으로 인해 SendGrid 변경
+# app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER')
+# app.config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
+# app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', 'true').lower() in ['true', 'on', '1']
+# app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+# app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+# app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME')
+# mail = Mail(app) #객체 생성해놓기
 
 # 스레드 Thread
 class Thread (db.Model):
@@ -74,6 +76,8 @@ class Post (db.Model):
 # Bender에서 portgre DB 연결, 테이블 생성
 with app.app_context():
     db.create_all()
+
+# SendGrid 이메일 설정
 
 
 # 회원가입 API
@@ -108,15 +112,32 @@ def register():
         # 인증 링크 생성 (토큰 발급한거 저기로)
         confirm_url = f"https://thread-board.vercel.app/verify/{token}"
 
-        # 이메일 내용
-        subject = "[ThreadBoard] 회원가입 인증 메일"
-        html = f"<p> 아래 링크를 클릭하셔서 회원가입을 완료하세요 </p> <br> <p> <a href ='{confirm_url}'>{confirm_url}</a></p>"
+        #sendgrid 이메일 발송 관련
+        message = Mail(
+            from_email=os.environ.get('MAIL_USERNAME'), #환경변수에 메세지 보낼 이메일 Render에 설정
+            to_emails=email,
+            subject='[ThreadBoard] 회원가입 인증메일',
+            html_content=f"<p> 아래 링크를 클릭하셔서 회원가입을 완료하세요</p> <br> <p> <a href='{confirm_url}'>{confirm_url}</a></p>"
+        )
         
-        # 메세지 객체 생성
-        msg = Message(subject, recipients=[email], html=html)
+        sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+        response = sg.send(message)
+        
+        # 응답 코드 2XX 아니면 에러
+        if response.status_code >= 300:
+            # SendGrid에 상태에러 메세지 로그 기록
+            print(f"SendGrid Error: {response.body}")
+            raise Exception("SendGrid API Error")
+        
+        # 이메일 내용 // Render 정책으로 SendGrid로 변경
+        #subject = "[ThreadBoard] 회원가입 인증 메일"
+        #html = f"<p> 아래 링크를 클릭하셔서 회원가입을 완료하세요 </p> <br> <p> <a href ='{confirm_url}'>{confirm_url}</a></p>"
+        
+        # 메세지 객체 생성 // Render 정책으로 SendGrid로 변경
+        #msg = Message(subject, recipients=[email], html=html)
 
-        # 이메일 발송
-        mail.send(msg)
+        # 이메일 발송 // Render 정책으로 SendGrid로 변경
+        #mail.send(msg)
 
         # 이메일 발송 성공 후 사용자 정보를 DB에 저장
         db.session.add(new_user)
