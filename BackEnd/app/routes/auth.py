@@ -15,7 +15,7 @@ from ..models import User
 auth_bp = Blueprint('auth', __name__)
 
 # 회원가입 API
-@auth_bp.route('/userproc', methods=['POST'])
+@auth_bp.route('/userProc', methods=['POST'])
 def register():
     data = request.json
     username = data.get('username')

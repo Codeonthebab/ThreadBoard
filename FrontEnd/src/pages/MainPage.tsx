@@ -24,7 +24,7 @@ function MainPage() {
   useEffect(() => {
     const fetchThreads = async (sortBy: 'popular' | 'latest') => {
       try {
-        const response = await fetch(`{process.env.REACT_APP_API_URL}/threads?sort_by=${sortBy}&per_page=5`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/threads?sort_by=${sortBy}&per_page=5`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

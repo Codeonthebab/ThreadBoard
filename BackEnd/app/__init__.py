@@ -32,4 +32,3 @@ def create_app(config_class=Config):
         return "<h1>백엔드 서버 동작 중! (*Flask API*)</h1>"
     
     return app
-
