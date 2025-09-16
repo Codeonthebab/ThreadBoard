@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from .auth import token_required #토큰 검사 데코레이터 호출
 from ..extensions import db
 from ..models import Thread, Post, User
+from sqlalchemy import func
 
 #Blueprint 설정
 threads_bp = Blueprint('threads', __name__)
@@ -45,6 +46,9 @@ def get_thread_with_posts(thread_id):
     #URL에 되있는 ID를 이용해 특정 스레드 조회함
     thread = Thread.query.get(thread_id)
 
+    thread.view_count += 1
+    db.session.commit()
+    
     if not thread:
         return jsonify({"error": "해당 스레드를 찾을 수 없습니다."}), 404
     
@@ -53,7 +57,8 @@ def get_thread_with_posts(thread_id):
         'id': thread.id,
         'title': thread.title,
         'created_at': thread.created_at.isoformat(),
-        'user_id': thread.user_id
+        'user_id': thread.user_id,
+        'view_count': thread.view_count
     }
 
     # 딕셔너리에 정의된 것들을 이용, 모든 게시물 조회
@@ -69,3 +74,57 @@ def get_thread_with_posts(thread_id):
         "thread": thread_data,
         "posts": posts_data
     })
+    
+# 메인 화면 표시 '스레드 목록' API (최신, 인기순)
+@threads_bp.route('/threads', methods=['GET'])
+def get_thread() :
+    page = request.args.get('page', 1, type=int)
+    per_page = request.args.get('per_page', 5, type=int)
+    sort_by = request.args.get('sort_by', 'latest', type=str)
+    
+    query = db.session.query(
+        Thread,
+        func.count(Post.id).label('post_count')
+    ).outerjoin(Post, Thread.id == Post.thread_id).group_by(Thread.id)
+    
+    if sort_by == 'popular':
+        query = query.order_by(func.count(Post.id).desc(), Thread.view_count.desc())
+    elif sort_by == 'latest':
+        query = query.order_by(Thread.created_at.desc())
+    
+    pagination = query.paginate(page=page, per_page=per_page, error_out=False)
+    threads = pagination.items
+    
+    threads_data = [{
+        'id': thread.id,
+        'title': thread.title,
+        'created_at': thread.created_at.isoformat(),
+        'user_id': thread.user_id,
+        'view_count': thread.view_count,
+        'post_count': post_count
+    } for thread, post_count in threads ]
+    
+    return jsonify({
+        'threads': threads_data,
+        'total': pagination.total,
+        'page': pagination.page,
+        'per_page': pagination.per_page,
+        'pages': pagination.pages
+    })
+
+# 스레드 삭제 API
+@threads_bp.route('/threads/<int:thread_id>', methods=['DELETE'])
+@token_required
+def delete_thread(current_user, thread_id):
+    thread = Thread.query.get(thread_id)
+    
+    if thread is None:
+        return jsonify({'error': '해당 스레드를 찾을 수 없습니다.'}), 404
+    
+    if thread.user_id != current_user.id:
+        return jsonify({'error': '이 스레드를 삭제할 권한이 없습니다.'}), 403
+    
+    db.session.delete(thread)
+    db.session.commit()
+    
+    return jsonify({'message': '스레드가 성공적으로 삭제되었습니다.'}), 200
