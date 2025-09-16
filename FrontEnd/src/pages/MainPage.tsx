@@ -79,7 +79,6 @@ function MainPage() {
                 </li>
               ))}
             </ul>
-
             {error && <p style={{ color: "red", textAlign: 'center' }}>{error}</p>}
           </section>
 
@@ -89,6 +88,7 @@ function MainPage() {
             <p>{t('information')}</p>
             <button onClick={handleNavigate}>{t('new_thread')}</button>
           </section>
+
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
-/* https://codepen.io/sadness97/pen/ZEXKqgM 에서 가져온 CSS */
-/* Google Fonts에서 손글씨 폰트 가져오기 */
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+/* 한, 영, 일 폰트 : Noto Sans KR, JP, MONO */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Sans+KR:wght@100..900&family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+/* 내용 전용 폰트  : Yomogi KR, EG*/
+@import url('https://fonts.googleapis.com/css2?family=Yomogi&family=Noto+Serif+JP:wght@400&family=Noto+Serif+KR:wght@400&display=swap');
 
 /* 전체 페이지 배경 (코르크 보드) */
 .board-background {
@@ -14,7 +15,7 @@
 
 /* 글쓰기 폼을 감싸는 종이 스타일 */
 .writing-paper {
-  font-family: 'Nanum Pen Script', cursive; /* 손글씨 폰트 적용 */
+  font-family: 'Noto Sans KR', 'Yomogi', 'Noto Sans MONO', cursive; /* 손글씨 폰트 적용 */
   font-size: 1.5rem; /* 폰트 크기 키우기 */
   background-image: url('https://yesterweb.org/img/bb/lined_paper.png');
   background-color: #FAFAFA;
@@ -46,7 +47,7 @@
 
 .writing-paper input[type="text"],
 .writing-paper textarea {
-  font-family: 'Nanum Pen Script', cursive; /* 입력창에도 폰트 적용 */
+  font-family: 'Noto Sans KR', 'Yomogi', 'Noto Sans MONO', cursive; /* 입력창에도 폰트 적용 */
   font-size: 1.5rem;
   width: 100%;
   border: none;
@@ -62,7 +63,7 @@
 }
 
 .writing-paper button {
-  font-family: 'Nanum Pen Script', cursive;
+  font-family: 'Noto Sans KR', 'Yomogi', 'Noto Sans MONO', cursive;
   font-size: 1.8rem;
   background-color: #70a1ff;
   color: white;
