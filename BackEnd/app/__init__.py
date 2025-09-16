@@ -24,7 +24,7 @@ def create_app(config_class=Config):
     with app.app_context():
         db.create_all()
 
-    # 5. 블루프린트(routes) 등록 (다음 단계에서 추가할 예정)
+    # 5. 블루프린트(routes) 등록
     app.register_blueprint(auth_bp)
     app.register_blueprint(threads_bp)
 
