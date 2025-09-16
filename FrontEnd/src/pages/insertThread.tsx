@@ -18,7 +18,7 @@ function InsertThread() {
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [error, setError] = useState<string | null> (null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,7 +30,7 @@ function InsertThread() {
     }
 
     try {
-      const response = await fetch (`${process.env.REACT_APP_API_BASE_URL}/threads`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/threads`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -57,37 +57,40 @@ function InsertThread() {
   };
 
   return (
-    <div className= "board-background">
+    <div className="board-background">
       <div className="writing-paper">
-      <h1>{t('new_thread')}</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="title">{t('title')} : </label>
-          <input 
-          type="text" 
-          id="title" 
-          name="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-          />
-        </div>
+        
+        <span className="paper-pin" aria-hidden="true">📌</span>
+        <h1>{t('new_thread')}</h1>
 
-        <div>
-          <label htmlFor="content">{t('content')}:</label>
-          <textarea 
-          id="content" 
-          name="content"
-          value={content}
-          onChange={(e)=> setContent(e.target.value)}
-          required
-          />
-        </div>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="title">{t('title')} : </label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+          </div>
 
-        {error && <p style={{ color: 'red'}}>{error}</p>}
-        <button type="submit">{t('create_thread')}</button>
+          <div>
+            <label htmlFor="content">{t('content')}:</label>
+            <textarea
+              id="content"
+              name="content"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              required
+            />
+          </div>
 
-      </form>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+          <button type="submit">{t('create_thread')}</button>
+
+        </form>
       </div>
     </div>
   );

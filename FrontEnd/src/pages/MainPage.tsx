@@ -58,7 +58,8 @@ function MainPage() {
           <ul className="thread-list">
             {popularthreads.map(thread => (
               <li key={thread.id} className="thread-item">
-                <Link to={`/threads/${thread.id}`} className="thread-link">{thread.title}</Link>
+                <span className="paper-pin" aria-hidden="true">📌</span>
+                <Link to={`/threads/${thread.id}`} className="thread-link thread-title">{thread.title}</Link>
                 <div className="thread-meta">
                   {t('views')}: {thread.view_count} | {t('posts')}: {thread.post_count}
                 </div>
@@ -70,22 +71,28 @@ function MainPage() {
           <ul className="thread-list">
             {latestThreads.map(thread => (
               <li key={thread.id} className="thread-item">
-                <Link to={`/threads/${thread.id}`} className="thread-link">{thread.title}</Link>
+                <span className="paper-pin" aria-hidden="true">📌</span>
+                <Link to={`/threads/${thread.id}`} className="thread-link thread-title">{thread.title}</Link>
                 <div className="thread-meta">
                   {new Date(thread.created_at).toLocaleString()}
                 </div>
               </li>
             ))}
           </ul>
+
           {error && <p style={{ color: "red", textAlign: 'center' }}>{error}</p>}
         </section>
 
         {/* 오른쪽 사이드 */}
-        <section className="announcement-section">
-          <h1>{t('welcome')}</h1>
-          <p>{t('information')}</p>
-          <button onClick={handleNavigate}>{t('new_thread')}</button>
-        </section>
+        <div className="writing-paper">
+          <span className="paper-pin" aria-hidden="true">📌</span>
+          <section className="announcement-section">
+            <h1>{t('welcome')}</h1>
+            <p>{t('information')}</p>
+            <button onClick={handleNavigate}>{t('new_thread')}</button>
+          </section>
+        </div>
+
       </div>
     </div>
   );

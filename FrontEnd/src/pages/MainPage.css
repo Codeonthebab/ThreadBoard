@@ -90,3 +90,106 @@
 .announcement-paper p {
     font-size: 1.3rem;
 }
+
+.paper-pin {
+  position: absolute;
+  top: -18px;                 /* 종이 상단 위로 띄워서 핀이 보이게 */
+  left: 50%;
+  transform: translateX(-50%) rotate(-8deg);
+  font-size: 34px;            /* 핀 크기 */
+  line-height: 1;
+  z-index: 30;                /* 종이보다 위에 보이게 */
+  filter: drop-shadow(0 3px 5px rgba(0,0,0,0.35));
+  transition: transform 0.18s ease, top 0.18s ease;
+  -webkit-user-select: none;
+  user-select: none;
+  pointer-events: none;       /* 클릭 막기 (접근성 목적) */
+}
+
+/* 종이(스레드 아이템) 위에 핀이 꽂힌 느낌을 위해 패딩 확보 */
+.thread-item {
+  padding: 28px 25px 15px;    /* 위쪽 패딩을 늘려 핀이 겹치도록 함 */
+  overflow: visible;
+  position: relative;         /* 이미 존재하는 경우도 있지만 보장 */
+  border-radius: 6px;
+}
+
+/* 핀 구멍(작은 자국) : 자연스러운 연출을 위한 원형 그림자 */
+.thread-item::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, rgba(0,0,0,0.22), rgba(0,0,0,0.5));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+  z-index: 15;
+  pointer-events: none;
+}
+
+/* 살짝 다른 각도로 다양성 부여 (선택적) */
+.thread-item:nth-child(4n) .paper-pin { transform: translateX(-50%) rotate(6deg); }
+.thread-item:nth-child(4n+1) .paper-pin { transform: translateX(-50%) rotate(-10deg); }
+.thread-item:nth-child(4n+2) .paper-pin { transform: translateX(-50%) rotate(3deg); }
+.thread-item:nth-child(4n+3) .paper-pin { transform: translateX(-50%) rotate(-4deg); }
+
+/* 호버 시 종이와 함께 살짝 움직이는 연출 */
+.thread-item:hover .paper-pin {
+  transform: translateX(-50%) rotate(0deg) translateY(-3px);
+}
+
+/* writing-paper (글쓰기 폼)에도 동일한 느낌 적용 */
+.writing-paper {
+  position: relative;   /* pin 을 절대위치로 자식에 위치시키려면 필요 */
+  padding-top: 60px;    /* 위 공간 확보 (기존 padding 보다 키움) */
+}
+
+/* 글쓰기 폼의 pin은 좀 더 크게 */
+.writing-paper .paper-pin {
+  top: -24px;
+  font-size: 42px;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.35));
+}
+
+/* 공지나 다른 '종이'에도 동일하게 적용 가능 */
+.announcement-paper {
+  position: relative;
+  padding-top: 48px;
+}
+.announcement-paper .paper-pin {
+  top: -20px;
+  font-size: 36px;
+}
+
+/* 모바일 대응 */
+@media (max-width: 600px) {
+  .paper-pin {
+    font-size: 22px;
+    top: -12px;
+  }
+  .writing-paper { padding-top: 44px; }
+  .thread-item { padding-top: 20px; }
+}
+
+/*
+.paper-pin {
+  /* 텍스트 숨기기: (내부에 텍스트도 남기려면 text-indent 사용)
+  width: 34px;
+  height: 34px;
+  display: block;
+  background-image: url('https://twemoji.maxcdn.com/v/latest/72x72/1f4cc.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  text-indent: -9999px;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  position: absolute;
+  z-index: 30;
+  pointer-events: none;
+}
+
+*/
