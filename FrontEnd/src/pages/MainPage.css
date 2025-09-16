@@ -10,6 +10,9 @@
     min-height: 100vh;
     padding: 40px;
     font-family: 'Noto Sans JP', 'Noto Sans KR', 'Noto Sans MONO';
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 /* 2단 레이아웃 컨테이너 설정 */
@@ -30,6 +33,21 @@
     text-align: center;
     color: #4a4a4a;
     text-shadow: 1px 1px 1px #fff;
+}
+
+/* 왼쪽 스레드 목록 영역 */
+.thread-list-section {
+    /* --- 추가된 부분 --- */
+    border-right: 2px dotted #aaaaaa; /* 회색 점선 추가 */
+    padding-right: 40px; /* 구분선과 내용 사이의 여백 */
+}
+
+/* 오른쪽 공지사항 영역 */
+.announcement-section {
+  width: 30%;
+  max-width: 300px;
+  /* --- 추가된 부분 --- */
+  padding-left: 20px; /* 구분선과 내용 사이의 여백 */
 }
 
 /* 겹쳐진 종이 효과를 위한 ul 스타일 */
