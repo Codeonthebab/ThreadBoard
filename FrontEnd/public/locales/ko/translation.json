@@ -13,5 +13,9 @@
     "welcomeuser": "님! 환영합니다!",
     "location": "지역 (미국/한국/일본)",
     "email_verify": "이메일 인증",
-    "loginTopage": "로그인 페이지로 이동"
+    "loginTopage": "로그인 페이지로 이동",
+    "popular_threads": "인기 스레드",
+    "latest_threads": "최신 스레드",
+    "views" : "조회수",
+    "posts" : "댓글수"
 }

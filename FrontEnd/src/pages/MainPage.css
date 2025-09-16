@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+
+/* 전체 페이지 스타일 */
+.main-board-background {
+    background-image: url('https://yesterweb.org/img/bb/cork.png');
+    min-height: 100vh;
+    padding: 40px;
+    font-family: 'Nanum Pen Script', cursive;
+}
+
+/* 2단 레이아웃 컨테이너 설정 */
+.main-container {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+}
+
+/* 오른쪽 공지사항 영역 */
+.announcement-section {
+  width: 30%;
+  max-width: 300px;
+}
+
+.thread-list-section h2, .announcement-section h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    color: #4a4a4a;
+    text-shadow: 1px 1px 1px #fff;
+}
+
+/* 겹쳐진 종이 효과를 위한 ul 스타일 */
+.thread-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* 각 스레드 아이템 (종이 조각) */
+.thread-item {
+  background-image: url('https://yesterweb.org/img/bb/lined_paper.png');
+  background-color: #FAFAFA;
+  padding: 15px 25px;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+  transform: rotate(-2deg); /* 살짝 기울이기 */
+  transition: all 0.2s ease-in-out;
+  position: relative; /* 겹치기 효과를 위해 */
+}
+
+/* 홀수 번째 종이는 반대로 기울이기 */
+.thread-item:nth-child(odd) {
+    transform: rotate(2deg);
+}
+
+/* 두 번째 종이부터 위로 겹치게 만들기 */
+.thread-item + .thread-item {
+  margin-top: -30px; 
+}
+
+.thread-item:hover {
+  transform: rotate(0deg) scale(1.05);
+  z-index: 10; /* 호버 시 가장 위로 올라오도록 */
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+}
+
+.thread-title {
+  font-size: 1.8rem;
+  color: #333;
+  text-decoration: none;
+}
+
+.thread-meta {
+    font-size: 1rem;
+    color: #777;
+    margin-top: 5px;
+}
+
+/* 공지사항 종이 (메모지 느낌) */
+.announcement-paper {
+  background-color: #ffc; /* 노란색 메모지 */
+  padding: 20px;
+  box-shadow: 5px 5px 10px rgba(0,0,0,0.2);
+  transform: rotate(4deg);
+  min-height: 300px;
+}
+
+.announcement-paper p {
+    font-size: 1.3rem;
+}

@@ -13,5 +13,9 @@
   "welcomeuser": "! Welcome!",
   "location": "Country (United State/Republic of Korea/Japan)",
   "email_verify": "Email Verified",
-  "loginTopage": "Go to Login Page"
+  "loginTopage": "Go to Login Page",
+  "popular_threads": "Popular Threads",
+  "latest_threads": "Latest Threads",
+  "views" : "Views",
+  "posts" : "Posts"
 }
