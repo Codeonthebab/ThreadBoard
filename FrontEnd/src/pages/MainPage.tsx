@@ -51,48 +51,45 @@ function MainPage() {
 
   return (
     <div className="main-board-background">
-      <div className="main-container">
-        {/* 왼쪽 사이드 */}
-        <section className="thread-list-section">
-          <h2>🔥{t('popular_threads')}</h2>
-          <ul className="thread-list">
-            {popularthreads.map(thread => (
-              <li key={thread.id} className="thread-item">
-                <span className="paper-pin" aria-hidden="true">📌</span>
-                <Link to={`/threads/${thread.id}`} className="thread-link thread-title">{thread.title}</Link>
-                <div className="thread-meta">
-                  {t('views')}: {thread.view_count} | {t('posts')}: {thread.post_count}
-                </div>
-              </li>
-            ))}
-          </ul>
+      <div className="writing-paper">
+        <span className="paper-pin" aria-hidden="true">📌</span>
+        <div className="main-container">
+          {/* 왼쪽 사이드 */}
+          <section className="thread-list-section">
+            <h2>🔥{t('popular_threads')}</h2>
+            <ul className="thread-list">
+              {popularthreads.map(thread => (
+                <li key={thread.id} className="thread-item">
+                  <Link to={`/threads/${thread.id}`} className="thread-link thread-title">{thread.title}</Link>
+                  <div className="thread-meta">
+                    {t('views')}: {thread.view_count} | {t('posts')}: {thread.post_count}
+                  </div>
+                </li>
+              ))}
+            </ul>
 
-          <h2>🔥{t('latest_threads')}</h2>
-          <ul className="thread-list">
-            {latestThreads.map(thread => (
-              <li key={thread.id} className="thread-item">
-                <span className="paper-pin" aria-hidden="true">📌</span>
-                <Link to={`/threads/${thread.id}`} className="thread-link thread-title">{thread.title}</Link>
-                <div className="thread-meta">
-                  {new Date(thread.created_at).toLocaleString()}
-                </div>
-              </li>
-            ))}
-          </ul>
+            <h2>🔥{t('latest_threads')}</h2>
+            <ul className="thread-list">
+              {latestThreads.map(thread => (
+                <li key={thread.id} className="thread-item">
+                  <Link to={`/threads/${thread.id}`} className="thread-link thread-title">{thread.title}</Link>
+                  <div className="thread-meta">
+                    {new Date(thread.created_at).toLocaleString()}
+                  </div>
+                </li>
+              ))}
+            </ul>
 
-          {error && <p style={{ color: "red", textAlign: 'center' }}>{error}</p>}
-        </section>
+            {error && <p style={{ color: "red", textAlign: 'center' }}>{error}</p>}
+          </section>
 
-        {/* 오른쪽 사이드 */}
-        <div className="writing-paper">
-          <span className="paper-pin" aria-hidden="true">📌</span>
+          {/* 오른쪽 사이드 */}
           <section className="announcement-section">
             <h1>{t('welcome')}</h1>
             <p>{t('information')}</p>
             <button onClick={handleNavigate}>{t('new_thread')}</button>
           </section>
         </div>
-
       </div>
     </div>
   );

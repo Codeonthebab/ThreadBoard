@@ -40,8 +40,7 @@
 }
 
 /* 각 스레드 아이템 (종이 조각) */
-.thread-item
-.main-container {
+.thread-item{
   background-image: url('https://yesterweb.org/img/bb/lined_paper.png');
   background-color: #FAFAFA;
   padding: 15px 25px;
@@ -145,7 +144,7 @@
 /* writing-paper (글쓰기 폼)에도 동일한 느낌 적용 */
 .writing-paper {
   position: relative;   /* pin 을 절대위치로 자식에 위치시키려면 필요 */
-  padding-top: 60px;    /* 위 공간 확보 (기존 padding 보다 키움) */
+  padding-top: 60px;  /* 위 공간 확보 (기존 padding 보다 키움) */
 }
 
 /* 글쓰기 폼의 pin은 좀 더 크게 */
