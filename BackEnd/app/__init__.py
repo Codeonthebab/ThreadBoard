@@ -28,6 +28,7 @@ def create_app(config_class=Config):
     app.register_blueprint(auth_bp)
     app.register_blueprint(threads_bp)
 
+    @app.route('/')
     def index():
         return "<h1>백엔드 서버 동작 중! (*Flask API*)</h1>"
     
