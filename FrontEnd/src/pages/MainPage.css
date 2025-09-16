@@ -29,7 +29,7 @@
 }
 
 .thread-list-section h2, .announcement-section h2 {
-    font-size: 2.5rem;
+    font-size: 2.0rem;
     text-align: center;
     color: #4a4a4a;
     text-shadow: 1px 1px 1px #fff;
@@ -85,13 +85,13 @@
 }
 
 .thread-title {
-  font-size: 1.8rem;
+  font-size: 1.3rem;
   color: #333;
   text-decoration: none;
 }
 
 .thread-meta {
-    font-size: 1rem;
+    font-size: 0.5rem;
     color: #777;
     margin-top: 5px;
 }
@@ -106,7 +106,7 @@
 }
 
 .announcement-paper p {
-    font-size: 1.3rem;
+  font-size: 0.9rem;
 }
 
 .paper-pin {
@@ -168,7 +168,7 @@
 /* 글쓰기 폼의 pin은 좀 더 크게 */
 .writing-paper .paper-pin {
   top: -24px;
-  font-size: 42px;
+  font-size: 21px;
   filter: drop-shadow(0 4px 6px rgba(0,0,0,0.35));
 }
 
@@ -185,7 +185,7 @@
 /* 모바일 대응 */
 @media (max-width: 600px) {
   .paper-pin {
-    font-size: 22px;
+    font-size: 11px;
     top: -12px;
   }
   .writing-paper { padding-top: 44px; }
