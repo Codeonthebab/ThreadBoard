@@ -40,7 +40,8 @@
 }
 
 /* 각 스레드 아이템 (종이 조각) */
-.thread-item {
+.thread-item
+.main-container {
   background-image: url('https://yesterweb.org/img/bb/lined_paper.png');
   background-color: #FAFAFA;
   padding: 15px 25px;
