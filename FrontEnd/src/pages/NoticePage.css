@@ -1,0 +1,37 @@
+/* 한, 영, 일 폰트 : Noto Sans KR, JP, MONO */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Sans+KR:wght@100..900&family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+/* 내용 전용 폰트  : Yomogi KR, EG*/
+@import url('https://fonts.googleapis.com/css2?family=Yomogi&family=Noto+Serif+JP:wght@400&family=Noto+Serif+KR:wght@400&display=swap');
+
+.notice-board-background {
+    background-image: url ('https://yesterweb.org/img/bb/cork.png');
+    min-height: 100vh;
+    padding: 40px;
+    font-family: 'Noto Sans JP', 'Noto Sans KR', 'Noto Sans MONO';
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    gap: 30px;  /* 종이 간격 */
+}
+
+.notice-paper {
+    background-image: url('https://yesterweb.org/img/bb/lined_paper.png');
+    background-color: #fafafa;
+    padding: 25px 40px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 800px;
+}
+
+.notice-paper h2 {
+    font-size: 2.5rem;
+    color: #4a4a4a;
+    border-bottom: 2px dotted #aaa;
+    padding-bottom: 10px;
+}
+
+.notice-paper p {
+    font-size: 1.6rem;
+    line-height: 1.8;
+    color: #333;
+}

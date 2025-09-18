@@ -22,6 +22,7 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/Notice" element={<NoticePage />} />
           <Route path="/insert-thread" element={<InsertThread />} />
           {/* 나중에 상세 보드 보기 페이지 추가할 것 */}
           <Route path="/signup" element={<Register />} />

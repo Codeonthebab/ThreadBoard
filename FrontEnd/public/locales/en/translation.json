@@ -17,5 +17,11 @@
   "popular_threads": "Popular Threads",
   "latest_threads": "Latest Threads",
   "views" : "Views",
-  "posts" : "Posts"
+  "posts" : "Posts",
+  "operator_notice" : "Notice",
+  "notice_content_1": "Welcome to the Threaded Bulletin Board! Have you ever heard of Bamboo Forest? It is right there! The so-called Bamboo Forest!",
+  "how_to_use": "How can I use it?",
+  "usage_guide1": "1. First, sign up for membership! (*Email authentication required!)",
+  "usage_guide2": "2. You can start a conversation with a topic you think of by clicking the Create New Thread button.",
+  "usage_guide3": "3. I see a thread that I like? Click on that thread, leave a comment and join the story!"
 }
