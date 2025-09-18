@@ -6,6 +6,7 @@ import Register from "./pages/RegisterPage";
 import MainPage from "./pages/MainPage";
 import LoginPage from "./pages/LoginPage";
 import VerifyPage from "./pages/VerifyPage";
+import NoticePage from "./pages/NoticePage";
 import LanguageSwitcher from "./contexts/LanguageSwitcher";
 import { Verify } from "crypto";
 
@@ -14,6 +15,7 @@ function App() {
   return (
     <div className="App">
       <header className="app-header-bar">
+        <NoticePage/>
         <LoginState/>
         <LanguageSwitcher />
       </header>
