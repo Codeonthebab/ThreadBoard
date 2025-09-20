@@ -16,9 +16,3 @@ gunicorn
 
 #SendGrid for sending emails
 sendgrid
-
-#Local Environ
-python-dotenv
-
-# Python library Tools
-pip-tools

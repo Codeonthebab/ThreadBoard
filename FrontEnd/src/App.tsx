@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="App">
       <header className="app-header-bar">
-        <button onClick={()=>NoticePage}/>
+        <NoticePage/>
         <LoginState/>
         <LanguageSwitcher />
       </header>

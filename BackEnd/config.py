@@ -1,8 +1,4 @@
 import os
-from dotenv import load_dotenv # 로컬을 위함
-
-load_dotenv() # 로컬 구동을 위함
-
 
 """FLASK 설정 파일"""
 class Config:
