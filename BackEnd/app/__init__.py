@@ -14,7 +14,11 @@ def create_app(config_class=Config):
     app.config.from_object(config_class) # 설정 파일 적용
 
     # CORS 섷정
-    CORS(app, origins=["https://thread-board.vercel.app"], supports_credentials=True)
+    allowed_origins = [
+        "https://thread-board.vercel.app", #프론트엔드 배포된 곳
+        "http://localhost:3000" #로컬 개발용 프론트
+    ]
+    CORS(app, origins=allowed_origins, supports_credentials=True)
 
     # 확장 모듈들 초기화
     db.init_app(app)
