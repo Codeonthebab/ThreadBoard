@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import LoginState from "./components/LoginState";
 import "./App.css";
 import InsertThread from "./pages/insertThread";
@@ -12,20 +12,35 @@ import { Verify } from "crypto";
 import { useTranslation } from "react-i18next";
 
 function App() {
-
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <div className="App">
       <header className="app-header-bar">
-        <button onClick={NoticePage}>{t('Notice')}</button>
-        <LoginState/>
+        <div className="header-left">
+          <Link to="/" className="header-logo">
+            {t("site_title")}
+          </Link>
+        </div>
+
+        <nav className="header-center">
+        <Link to="/notice" className="header-nav-link">
+        {t('Notice')}
+        </Link>
+        {/* 추가 메뉴 구성하면 링크 투로 만들꺼 */}
+        </nav>
+
+        <div className="header-right">
+        <LoginState />
         <LanguageSwitcher />
+        </div>
       </header>
+
+
       <main>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/Notice" element={<NoticePage />} />
+          <Route path="/notice" element={<NoticePage />} />
           <Route path="/insert-thread" element={<InsertThread />} />
           {/* 나중에 상세 보드 보기 페이지 추가할 것 */}
           <Route path="/signup" element={<Register />} />

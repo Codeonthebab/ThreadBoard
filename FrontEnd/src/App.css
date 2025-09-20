@@ -51,7 +51,33 @@ header {
 
 .app-header-bar {
   background-color: #282c34;
-  padding:10px;
+  padding: 10px 20px;
   display: flex;
-  justify-content: flex-end; /* 자식요소 위치 오른쪽 끝으로 정렬*/
+  align-items: center;
+  justify-content: space-between; /* 양쪽 끝으로 두는 스페이스 비트윈 코드~ */
+  color: white;
+}
+
+.header-left, .header-center, .header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+.header-nav-link {
+  color: #adadad;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: color 0.2s;
+}
+
+.header-nav-link:hover {
+  color: white;
 }
