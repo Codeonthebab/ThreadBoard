@@ -9,13 +9,16 @@ import VerifyPage from "./pages/VerifyPage";
 import NoticePage from "./pages/NoticePage";
 import LanguageSwitcher from "./contexts/LanguageSwitcher";
 import { Verify } from "crypto";
+import { useTranslation } from "react-i18next";
 
 function App() {
+
+  const {t} = useTranslation();
 
   return (
     <div className="App">
       <header className="app-header-bar">
-        <button onClick={()=>NoticePage}/>
+        <button onClick={NoticePage}>{t('Notice')}</button>
         <LoginState/>
         <LanguageSwitcher />
       </header>
