@@ -74,7 +74,73 @@ def get_thread_with_posts(thread_id):
         "thread": thread_data,
         "posts": posts_data
     })
+
+# 인기 스레드 목록 API
+@threads_bp.route('/threads/popular', methods=['GET'])
+def get_popular_threads():
+    page = request.args.get('page', 1, type=int)
+    per_page = request.args.get('per_page', 5, type=int)
+
+    query = db.session.query(
+        Thread,
+        func.count(Post.id).label('post_count')
+    ).outerjoin(Post).group_by(Thread.id).order_by(
+        func.count(Post.id).desc(), Thread.view_count.desc(), Thread.created_at.desc()
+    )
+
+    pagination = query.paginate(page=page, per_page=per_page, error_out=False)
+    threads_with_post_count = pagination.items
+
+    threads_data = [{
+        'id': thread.id,
+        'title': thread.title,
+        'created_at': thread.created_at.isoformat(),
+        'user_id': thread.user_id,
+        'view_count': thread.view_count,
+        'post_count': post_count
+    } for thread, post_count in threads_with_post_count]
     
+    return jsonify({
+        'threads': threads_data,
+        'total': pagination.total,
+        'page': pagination.page,
+        'per_page': pagination.per_page,
+        'pages': pagination.pages
+    })
+
+# 최신 스레드 목록 API
+@threads_bp.route('/threads/latest', methods=['GET'])
+def get_latest_threads():
+    page = request.args.get('page', 1, type=int)
+    per_page = request.args.get('per_page', 5, type=int)
+
+    query = db.session.query(
+        Thread,
+        func.count(Post.id).label('post_count')
+    ).outerjoin(Post).group_by(Thread.id).order_by(
+        Thread.created_at.desc()
+    )
+
+    pagination = query.paginate(page=page, per_page=per_page, error_out=False)
+    threads_with_post_count = pagination.items
+
+    threads_data = [{
+        'id': thread.id,
+        'title': thread.title,
+        'created_at': thread.created_at.isoformat(),
+        'user_id': thread.user_id,
+        'view_count': thread.view_count,
+        'post_count': post_count
+    } for thread, post_count in threads_with_post_count]
+    
+    return jsonify({
+        'threads': threads_data,
+        'total': pagination.total,
+        'page': pagination.page,
+        'per_page': pagination.per_page,
+        'pages': pagination.pages
+    })
+
 # 메인 화면 표시 '스레드 목록' API (최신, 인기순)
 @threads_bp.route('/threads', methods=['GET'])
 def get_thread() :
