@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import VerifyPage from "./pages/VerifyPage";
 import NoticePage from "./pages/NoticePage";
 import LanguageSwitcher from "./contexts/LanguageSwitcher";
+import LogoSection from "./components/LogoSection";
 import { Verify } from "crypto";
 import { useTranslation } from "react-i18next";
 
@@ -18,6 +19,7 @@ function App() {
     <div className="App">
       <header className="app-header-bar">
         <div className="header-left">
+          <LogoSection/>
           <Link to="/" className="header-logo">
             {t("site_title")}
           </Link>
