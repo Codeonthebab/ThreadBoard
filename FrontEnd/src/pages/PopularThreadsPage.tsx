@@ -20,7 +20,7 @@ interface PageInfo {
 }
 
 
-function popularthreadspage () {
+function PopularThreadsPage () {
     
     const { t } = useTranslation ();
     const [threads, setThreads] = useState<Thread[]>([]);
@@ -33,7 +33,7 @@ function popularthreadspage () {
             setError(null);
 
             try {
-                const response = await fetch(`${process.env.REACT_APP_API_BASE_URl})/threads/popular?page=${currentPage}&per_page=5`);
+                const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/threads/popular?page=${currentPage}&per_page=5`);
                 if (!response.ok){
                     throw new Error(`HTTP error! status : ${response.status}`);
                 }
@@ -47,7 +47,7 @@ function popularthreadspage () {
                 });
             } catch (err) {
                 console.error("Failed to fetch popular threads : ", err);
-                setError
+                setError("인기 게시글을 불러오는데 실패했습니다.");
             }
         };
         fetchPopularThreads();
@@ -102,4 +102,4 @@ function popularthreadspage () {
     );
 }
 
-export default popularthreadspage;
+export default PopularThreadsPage;
