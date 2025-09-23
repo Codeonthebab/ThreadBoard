@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import VerifyPage from "./pages/VerifyPage";
 import NoticePage from "./pages/NoticePage";
 import PopularThreadsPage from "./pages/PopularThreadsPage";
+import LatestThreadsPage from "./pages/LatestThreadsPage";
 import LanguageSwitcher from "./contexts/LanguageSwitcher";
 import LogoSection from "./components/LogoSection";
 import { Verify } from "crypto";
@@ -35,6 +36,10 @@ function App() {
         {t('popular_threads')}
         </Link>
 
+        <Link to="/threads/latest" className="header-nav-link">
+        {t('latest_threads')}
+        </Link>
+
         {/* 추가 메뉴 구성하면 링크 투로 만들꺼 */}
         </nav>
 
@@ -51,6 +56,7 @@ function App() {
           <Route path="/notice" element={<NoticePage />} />
           <Route path="/insert-thread" element={<InsertThread />} />
           <Route path="/threads/popular" element={<PopularThreadsPage />} />
+          <Route path="/threads/latest" element={<LatestThreadsPage />} />
           {/* 나중에 상세 보드 보기 페이지 추가할 것 */}
           <Route path="/signup" element={<Register />} />
           <Route path="/login" element={<LoginPage />} />
