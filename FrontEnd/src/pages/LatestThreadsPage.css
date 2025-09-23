@@ -1,0 +1,107 @@
+/* 한, 영, 일 폰트 : Noto Sans KR, JP, MONO */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Sans+KR:wght@100..900&family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+/* 내용 전용 폰트  : Yomogi KR, EG*/
+@import url('https://fonts.googleapis.com/css2?family=Yomogi&family=Noto+Serif+JP:wght@400&family=Noto+Serif+KR:wght@400&display=swap');
+
+.thread-list-page-background {
+    background-image: url('https://yesterweb.org/img/bb/cork.png');
+    min-height: 100vh;
+    padding: 40px;
+    font-family: 'Noto Sans JP', 'Noto Sans KR', 'Noto Sans MONO';
+    font-size: 24px;
+}
+
+.thread-list-container {
+    background-color: rgba(255, 255, 255, 0.8);
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+.thread-list-container {
+    background-color: rgba(255, 255, 255, 0.8);
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+.thread-list-container h1 {
+    font-size: 3rem;
+    text-align: center;
+    color: #4a4a4a;
+    margin-bottom: 30px;
+}
+
+.thread-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.thread-table th, .thread-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 1.5rem;
+}
+
+.thread-table th {
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.thread-table a {
+    color : #0056b3;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.thread-table a:hover {
+    text-decoration: underline;
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    gap: 15px;
+}
+
+.pagination-controls button {
+    font-family: 'Noto Sans JP', 'Noto Sans KR', 'Noto Sans MONO';
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    border: 2px solid #555;
+    background-color: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pagination-controls button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+    background-color: #555;
+    color: white;
+}
+
+.pagination-controls span {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* 모바일 대응 */
+@media (max-width: 600px) {
+  .paper-pin {
+    font-size: 11px;
+    top: -12px;
+  }
+  .writing-paper { padding-top: 44px; }
+  .thread-item { padding-top: 20px; }
+}
