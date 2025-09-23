@@ -16,9 +16,9 @@ function NoticePage () {
             </div>
             <div className="notice-paper">
                 <h2>💡{t('how_to_use')}</h2>
-                <p>t{('usage_guide1')}</p>
-                <p>t{('usage_guide2')}</p>
-                <p>t{('usage_guide3')}</p>
+                <p>{t('usage_guide1')}</p>
+                <p>{t('usage_guide2')}</p>
+                <p>{t('usage_guide3')}</p>
             </div>
         </div>
     );

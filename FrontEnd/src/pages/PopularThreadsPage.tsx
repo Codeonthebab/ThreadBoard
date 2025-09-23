@@ -84,7 +84,7 @@ function popularthreadspage () {
                     <div className="pagination-controls">
                         <button
                         onClick={() => setCurrentPage(currentPage - 1)}
-                        disabled={currentPage===1}
+                        disabled={currentPage === 1 }
                         >
                             {t('previous')}
                         </button>
