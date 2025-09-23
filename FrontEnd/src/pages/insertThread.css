@@ -86,3 +86,13 @@
   font-size: 1.3rem;
   margin-top: 15px;
 }
+
+/* 모바일 대응 */
+@media (max-width: 600px) {
+  .paper-pin {
+    font-size: 11px;
+    top: -12px;
+  }
+  .writing-paper { padding-top: 44px; }
+  .thread-item { padding-top: 20px; }
+}
