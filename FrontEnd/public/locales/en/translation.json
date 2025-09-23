@@ -16,6 +16,8 @@
   "loginTopage": "Go to Login Page",
   "popular_threads": "Popular Threads",
   "latest_threads": "Latest Threads",
+  "title" : "Title",
+  "date" : "Date",
   "views" : "Views",
   "posts" : "Posts",
   "operator_notice" : "Notice",
@@ -25,5 +27,8 @@
   "usage_guide2": "2. You can start a conversation with a topic you think of by clicking the Create New Thread button.",
   "usage_guide3": "3. I see a thread that I like? Click on that thread, leave a comment and join the story!",
   "Notice": "Notice",
-  "site_title": "Threadly"
+  "site_title": "Threadly",
+  "popular_threads_list": "Full list of popular threads",
+  "previous" : "이전",
+  "next" : "다음"
 }

@@ -16,6 +16,8 @@
   "loginTopage": "ログインページへ移動",
   "popular_threads": "人気スレッド",
   "latest_threads": "最新スレッド",
+  "title" : "タイトル",
+  "date" : "日付",
   "views" : "閲覧数",
   "posts" : "コメント数",
   "operator_notice" : "公知事項",
@@ -25,5 +27,8 @@
   "usage_guide2": "2. 本人が考えたテーマを [新しいスレッドの作成] ボタンをクリックして、そのテーマの会話を開始することができます。",
   "usage_guide3": "3. 気に入ったスレッドが見える？」 該当スレッドをクリックし、コメントを残してストーリーに参加してください！",
   "Notice": "お知らせ",
-  "site_title": "スレッドリー"
+  "site_title": "スレッドリー",
+  "popular_threads_list": "人気スレッド全リスト",
+  "previous" : "이전",
+  "next" : "다음"
 }
