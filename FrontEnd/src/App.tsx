@@ -32,7 +32,7 @@ function App() {
         </Link>
 
         <Link to="/threads/popular" className="header-nav-link">
-        {t('popular_threads_list')}
+        {t('popular_threads')}
         </Link>
 
         {/* 추가 메뉴 구성하면 링크 투로 만들꺼 */}
