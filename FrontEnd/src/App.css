@@ -81,3 +81,13 @@ header {
 .header-nav-link:hover {
   color: white;
 }
+
+/* 모바일 대응 */
+@media (max-width: 600px) {
+  .paper-pin {
+    font-size: 11px;
+    top: -12px;
+  }
+  .writing-paper { padding-top: 44px; }
+  .thread-item { padding-top: 20px; }
+}
