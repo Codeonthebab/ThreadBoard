@@ -9,12 +9,15 @@ import VerifyPage from "./pages/VerifyPage";
 import NoticePage from "./pages/NoticePage";
 import PopularThreadsPage from "./pages/PopularThreadsPage";
 import LatestThreadsPage from "./pages/LatestThreadsPage";
+import ThreadInfoPage from "./pages/ThreadInfoPage";
 import LanguageSwitcher from "./contexts/LanguageSwitcher";
 import LogoSection from "./components/LogoSection";
 import { Verify } from "crypto";
 import { useTranslation } from "react-i18next";
 
+
 function App() {
+
   const { t } = useTranslation();
 
   return (
@@ -28,6 +31,7 @@ function App() {
         </div>
 
         <nav className="header-center">
+        
         <Link to="/notice" className="header-nav-link">
         {t('Notice')}
         </Link>
@@ -47,6 +51,7 @@ function App() {
         <LoginState />
         <LanguageSwitcher />
         </div>
+        
       </header>
 
 
@@ -57,6 +62,7 @@ function App() {
           <Route path="/insert-thread" element={<InsertThread />} />
           <Route path="/threads/popular" element={<PopularThreadsPage />} />
           <Route path="/threads/latest" element={<LatestThreadsPage />} />
+          <Route path="/threads/:thread_id" element={<ThreadInfoPage />} />
           {/* 나중에 상세 보드 보기 페이지 추가할 것 */}
           <Route path="/signup" element={<Register />} />
           <Route path="/login" element={<LoginPage />} />
