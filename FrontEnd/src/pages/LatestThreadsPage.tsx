@@ -44,7 +44,7 @@ function LatestThreadsPage() {
           total: data.total,
         });
       } catch (err) {
-        console.error("Failed to fetch popular threads:", err);
+        console.error("Failed to fetch latest threads:", err);
         setError('최신 스레드 목록을 불러오는 데 실패했습니다.');
       }
     };
@@ -55,7 +55,7 @@ function LatestThreadsPage() {
   return (
     <div className="thread-list-page-background">
       <div className="thread-list-container">
-        <h1>🔥{t('latest_threads_list')}</h1>
+        <h1>🆕{t('latest_threads_list')}</h1>
         
         {error && <p style={{ color: "red" }}>{error}</p>}
         

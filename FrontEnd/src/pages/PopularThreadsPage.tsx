@@ -47,7 +47,7 @@ function PopularThreadsPage () {
                 });
             } catch (err) {
                 console.error("Failed to fetch popular threads : ", err);
-                setError("인기 게시글을 불러오는데 실패했습니다.");
+                setError("인기 스레드 목록을 불러오는데 실패했습니다.");
             }
         };
         fetchPopularThreads();
