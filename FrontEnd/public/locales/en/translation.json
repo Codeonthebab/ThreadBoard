@@ -20,6 +20,8 @@
   "date" : "Date",
   "views" : "Views",
   "posts" : "Posts",
+  "thread_not_found" : "Can not be found",
+  "loading" : "Reading it",
   "operator_notice" : "Notice",
   "notice_content_1": "Welcome to the Threaded Bulletin Board! Have you ever heard of Bamboo Forest? It is right there! The so-called Bamboo Forest!",
   "how_to_use": "How can I use it?",
