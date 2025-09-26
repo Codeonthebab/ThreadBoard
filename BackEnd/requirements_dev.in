@@ -10,7 +10,6 @@
 # Linter & Type Stubs for static analysis
 mypy
 types-Flask-Cors
-types-Flask-Bcrypt
 types-SQLAlchemy  # Flask-SQLAlchemy uses SQLAlchemy core
 types-PyJWT
 
