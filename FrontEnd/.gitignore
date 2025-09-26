@@ -9,7 +9,7 @@
 /build
 
 # Environment variables
-# 민감한 정보를 담고 있으므로 절대 Git에 올리면 안 됩니다.
+# 민감한 정보를 담고 있으니까 절대 Git 안됨!
 .env
 .env.local
 .env.development.local

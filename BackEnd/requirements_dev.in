@@ -1,0 +1,22 @@
+# 개발용
+
+# Include all production requirements
+-r requirements.in
+
+# ------------------ #
+# Development Tools
+# ------------------ #
+
+# Linter & Type Stubs for static analysis
+mypy
+types-Flask-Cors
+types-Flask-Bcrypt
+types-SQLAlchemy  # Flask-SQLAlchemy uses SQLAlchemy core
+types-PyJWT
+
+# Code Formatter for consistent code style
+black
+isort
+
+# Testing Framework for writing and running tests
+pytest
