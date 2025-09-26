@@ -1,98 +1,124 @@
 /* 한, 영, 일 폰트 : Noto Sans KR, JP, MONO */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Sans+KR:wght@100..900&family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
-/* 내용 전용 폰트  : Yomogi KR, EG*/
+/* 내용 전용 폰트 : Yomogi KR, EG*/
 @import url('https://fonts.googleapis.com/css2?family=Yomogi&family=Noto+Serif+JP:wght@400&family=Noto+Serif+KR:wght@400&display=swap');
+
+/* --- 기본 레이아웃 --- */
 
 /* 전체 페이지 배경 (코르크 보드) */
 .thread-info-background {
   background-image: url('https://yesterweb.org/img/bb/cork.png');
-  min-height: 100vh; /* 화면 전체 높이를 채우도록 설정 */
-  padding: 40px;
+  min-height: 100vh;
+  padding: 40px 20px; /* 좌우 패딩 추가 */
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* 위쪽 정렬 */
 }
 
-/* 글쓰기 폼을 감싸는 종이 스타일 */
-.writing-paper {
-  font-family: 'Noto Sans KR', 'Yomogi', 'Noto Sans MONO', cursive; /* 손글씨 폰트 적용 */
-  font-size: 1.5rem; /* 폰트 크기 키우기 */
+/* 스레드 정보를 감싸는 종이 스타일 */
+.thread-info-container {
+  font-family: 'Noto Sans KR', 'Yomogi', 'Noto Sans MONO', cursive;
+  font-size: 1.2rem; /* 기본 폰트 크기 조정 */
   background-image: url('https://yesterweb.org/img/bb/lined_paper.png');
   background-color: #FAFAFA;
   padding: 30px 40px;
   width: 100%;
-  max-width: 700px; /* 종이 최대 너비 */
-  min-height: 800px;
-  box-shadow: 5px 5px 15px rgba(0,0,0,0.2); /* 종이 그림자 효과 */
+  max-width: 800px; /* 너비 확장 */
+  min-height: 500px; /* 최소 높이 조정 */
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
   transform: rotate(-1.5deg); /* 살짝 기울이기 */
 }
 
-.thread-header h1 {
-  font-size: 3rem;
+/* --- 스레드 헤더 --- */
+
+.thread-header {
   text-align: center;
+  border-bottom: 2px dashed #ccc;
+  padding-bottom: 20px;
   margin-bottom: 30px;
+}
+
+.thread-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
   color: #333;
+  word-break: keep-all; /* 제목이 끊기지 않도록 */
 }
 
-/* 폼 스타일 */
-.writing-paper form div {
-  margin-bottom: 25px;
-}
-
-.writing-paper label {
-  display: block;
-  margin-bottom: 5px;
+.thread-meta {
+  font-size: 0.9rem;
   color: #555;
 }
 
-.writing-paper input[type="text"],
-.writing-paper textarea {
-  font-family: 'Noto Sans KR', 'Yomogi', 'Noto Sans MONO', cursive; /* 입력창에도 폰트 적용 */
-  font-size: 1.5rem;
-  width: 100%;
-  border: none;
-  background-color: transparent; /* 배경 투명하게 */
-  border-bottom: 2px dotted #aaa; /* 밑줄 스타일 */
-  padding: 10px 5px;
-  outline: none; /* 클릭 시 테두리 제거 */
-  resize: none; /* textarea 크기 조절 비활성화 */
+.thread-meta span {
+  margin: 0 10px;
 }
 
-.writing-paper textarea {
-  height: 350px; /* 내용 영역 높이 */
+
+/* --- 게시물 목록 --- */
+
+.posts-list {
+  list-style: none;
+  padding: 0;
 }
 
-.writing-paper button {
-  font-family: 'Noto Sans KR', 'Yomogi', 'Noto Sans MONO', cursive;
-  font-size: 1.8rem;
-  background-color: #70a1ff;
-  color: white;
-  border: none;
-  padding: 10px 30px;
-  border-radius: 5px;
-  cursor: pointer;
-  display: block;
-  margin: 20px auto 0;
-  transition: background-color 0.2s;
+.post-item {
+  background-color: rgba(255, 255, 255, 0.5); /* 반투명 배경 */
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
 }
 
-.writing-paper button:hover {
-  background-color: #5383e8;
+.post-header {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 8px;
 }
 
-.writing-paper .error-message {
+.post-content {
+  font-family: 'Yomogi', 'Noto Serif KR', serif; /* 내용 폰트 적용 */
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #222;
+  white-space: pre-wrap; /* 줄바꿈 유지 */
+  word-break: break-word; /* 긴 단어 자동 줄바꿈 */
+}
+
+
+/* --- 로딩 및 에러 메시지 --- */
+
+.loading-message,
+.error-message {
+  font-family: 'Noto Sans KR', sans-serif;
   color: #d63031;
   text-align: center;
-  font-size: 1.3rem;
-  margin-top: 15px;
+  font-size: 1.5rem;
+  padding: 50px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-/* 모바일 대응 */
+/* --- 모바일 대응 --- */
 @media (max-width: 600px) {
-  .paper-pin {
-    font-size: 11px;
-    top: -12px;
+  .thread-info-background {
+    padding: 20px 10px;
   }
-  .writing-paper { padding-top: 44px; }
-  .thread-item { padding-top: 20px; }
+  .thread-info-container {
+    padding: 20px;
+    transform: rotate(0); /* 모바일에서는 기울이지 않음 */
+  }
+  .thread-header h1 {
+    font-size: 1.8rem;
+  }
+  .thread-meta {
+    font-size: 0.8rem;
+  }
+  .post-item {
+    padding: 10px 15px;
+  }
 }
