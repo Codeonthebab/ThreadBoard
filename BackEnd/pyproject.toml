@@ -1,6 +1,11 @@
-# pyproject.toml
 
 [tool.mypy]
 [[tool.mypy.overrides]]
 module = "flask_bcrypt.*"
 ignore_missing_imports = true
+
+[tool.black]
+line-length = 88
+
+[tool.isort]
+profile = "black"
