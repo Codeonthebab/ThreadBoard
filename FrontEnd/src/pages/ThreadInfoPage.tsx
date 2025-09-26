@@ -63,8 +63,8 @@ function ThreadInfoPage () {
     }
 
     return (
-        <div className="thread-detail-background">
-            <div className="thread-detail-container">
+        <div className="thread-info-background">
+            <div className="thread-info-container">
                 <header className="thread-header">
                     <h1>{thread.title}</h1>
                     <div className="thread-meta">
