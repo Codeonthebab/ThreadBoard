@@ -178,6 +178,42 @@ def get_thread() :
         'pages': pagination.pages
     })
 
+# 특정 스레드에 새로운 댓글(Thread) 추가 되는거 API
+@threads_bp.route('/threads/<int:thread_id>/posts', methods=['POST'])
+@token_required
+def create_post_in_thread(current_user, thread_id) :
+    data = request.json
+    content = data.get('content')
+
+    if not content :
+        return jsonify({'error': '내용을 입력 해야합니다.'}), 400
+    
+    thread = Thread.query.get(thread_id)
+    if not thread :
+        return jsonify({'error' : '존재하지 않는 스레드입니다.'}), 404
+    
+    ip_address = request.headers.get('X-Forwarded-For', request.remote_addr)
+
+    new_post = Post(
+        content = content, 
+        thread_id = thread_id,
+        user_id = current_user.id,
+        ip = ip_address
+    )
+
+    db.session.add(new_post)
+    db.session.commit()
+
+    return jsonify ({
+        'message' : '게시물이 작성되었습니다.',
+        'post' : {
+            'id' : new_post.id,
+            'content' : new_post.content,
+            'created_at' : new_post.created_at.isoformat(),
+            'user_id' : new_post.user_id
+        }
+    }), 201
+
 # 스레드 삭제 API
 @threads_bp.route('/threads/<int:thread_id>', methods=['DELETE'])
 @token_required
