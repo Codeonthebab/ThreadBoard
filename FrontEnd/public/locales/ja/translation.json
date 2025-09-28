@@ -34,5 +34,8 @@
   "latest_threads_list":"最新スレッド全リスト",
   "previous" : "以前",
   "next" : "次",
-  "add_comment" : "このスレッドにコメントを投稿します"
+  "add_comment" : "このスレッドにコメントを投稿します",
+  "enter_comment_placeholder" : "コメントを作成してください！",
+  "submitting" : "コメントを残す",
+  "submit_comment" : "コメントを残す"
 }
