@@ -55,8 +55,20 @@ function AddPostForm ({ threadId, onPostAdded } : AddPostFormProps ) {
     return (
         <form className = "add-post-form" onSubmit={handleSubmit}>
             <h3>{t('add_comment')}</h3>
+            <textarea
+            value = {content}
+            onChange={(e) => setContent(e.target.value)}
+            placeholder={t('enter_comment_placeholder')}
+            rows={4}
+            required/>
+
+            {error && <p className="error-message">{error}</p>}
+
+            <button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? t('submitting') : t('submit_comment')}
+            </button>
         </form>
-    )
+    );
 }
 
 export default AddPostForm;
