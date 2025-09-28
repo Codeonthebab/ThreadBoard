@@ -1,6 +1,8 @@
-import React, { useEffect, useState, useTransition } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "../contexts/AuthContext";
+import AddPostForm from "../components/AddPostForm";
 import './ThreadInfoPage.css';
 
 interface  ThreadData {
@@ -21,6 +23,7 @@ interface PostData {
 function ThreadInfoPage () {
     const { t } = useTranslation();
     const { thread_id } = useParams<{thread_id:string}> (); // URL에서 Thread_id 가져옴
+    const { token } = useAuth();
 
     const [thread, setThread] = useState<ThreadData | null> (null)
     const [posts, setPosts] = useState<PostData[]>([]);
@@ -51,6 +54,10 @@ function ThreadInfoPage () {
             fetchThreadInfoPage();
         }
     }, [thread_id]); // thread_id 변경되면 다시 데이터 가져옴
+
+    const handlePostAdded = (newPost : PostData) => {
+        setPosts(currentPosts => [ ...currentPosts, newPost ]);
+    };
 
     if (loading) {
         return <div className="loading-message">{t('loading')}...</div>;
@@ -83,6 +90,14 @@ function ThreadInfoPage () {
                         </article>
                     ))}
                 </section>
+                
+                {token && thread && (
+                    <AddPostForm
+                    threadId={thread.id}
+                    onPostAdded={handlePostAdded}
+                    />
+                )}
+
             </div>
         </div>
     );
