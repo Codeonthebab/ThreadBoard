@@ -33,5 +33,6 @@
     "popular_threads_list": "인기 스레드 전체 목록",
     "latest_threads_list":"최신 스레드 전체 목록",
     "previous" : "이전",
-    "next" : "다음"
+    "next" : "다음",
+    "add_comment" : "이 스레드에 댓글 달기"
 }

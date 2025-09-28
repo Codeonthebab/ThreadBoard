@@ -33,5 +33,6 @@
   "popular_threads_list": "Full list of popular threads",
   "latest_threads_list": "Full list of latest threads",
   "previous" : "Previous",
-  "next" : "Next"
+  "next" : "Next",
+  "add_comment" : "Comment on this thread"
 }

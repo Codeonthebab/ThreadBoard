@@ -33,5 +33,6 @@
   "popular_threads_list": "人気スレッド全リスト",
   "latest_threads_list":"最新スレッド全リスト",
   "previous" : "以前",
-  "next" : "次"
+  "next" : "次",
+  "add_comment" : "このスレッドにコメントを投稿します"
 }
