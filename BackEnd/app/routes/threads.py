@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from .auth import token_required #토큰 검사 데코레이터 호출
 from ..extensions import db
-from ..models import Thread, Post, User
+from ..models import Thread, Post, User, Notification
 from sqlalchemy import func
 
 #Blueprint 설정
@@ -202,6 +202,17 @@ def create_post_in_thread(current_user, thread_id) :
     )
 
     db.session.add(new_post)
+
+    # 알림 생성 로직 : 작성자 제외의 한정으로 알림 생성
+    if thread.user_id != current_user.id:
+        notification = Notification (
+            recipient_id = thread.user_id,  # 알림 수신 : 스레드 주인
+            sender_id = current_user.id,    # 알림 발신 : 댓글 단 사람
+            thread_id = thread_id,          # 알림 발생한 해당 스레드
+            notification_type = 'new_post'  # 알림 종류 : 새 댓글 알림
+        )
+        db.session.add(notification)
+
     db.session.commit()
 
     return jsonify ({
