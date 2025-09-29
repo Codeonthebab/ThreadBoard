@@ -19,7 +19,7 @@ function NotificationBell() {
     const { t } = useTranslation();
     const { token } = useAuth();
     const [ isOpen, setIsOpen ] = useState(false);
-    const [ notification, setNotification ] = useState<Notificationbell[]>([]);
+    const [ notifications, setNotifications ] = useState<Notificationbell[]>([]);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -31,13 +31,15 @@ function NotificationBell() {
                             'Authorization' : `Bearer ${token}`,
                         },
                     });
-                    if (!response.ok) {
+                    if (response.ok) {
                         const data = await response.json();
-                        setNotification(data);
+                        setNotifications(data);
+                    } else {
+                        console.error("Failed to fetch notifications : ", await response.text());
+                        console.log("알람을 불러오는데 실패했습니다.")
                     }
                 } catch (err) {
                     console.error("Failed to fetch notifications : ", err);
-                    console.log("알림을 불러오는데 실패했습니다.");
                 }
             };
             fetchNotifications();
@@ -55,7 +57,7 @@ function NotificationBell() {
         };
     }, [token]);
 
-    const unreadCount = notification.filter(n => !n.is_read).length;
+    const unreadCount = notifications.filter(n => !n.is_read).length;
 
     return (
         <div className = "notification-bell" ref = {dropdownRef}>
@@ -68,11 +70,11 @@ function NotificationBell() {
             {isOpen && (
                 <div className="notification-dropdown">
                     <div className="notification-dropdown-header">{t('notifications')}</div>
-                    {notification.length > 0 ? (
+                    {notifications.length > 0 ? (
                         
                         /* 알림이 있을 때 */
                         <ul className = "notification-list">
-                            {notification.map (noti => (
+                            {notifications.map (noti => (
                                 <li key={noti.id} className={`notification-item ${!noti.is_read ? 'unread' : ''}`}>
                                     <Link to={`/thread/${noti.thread_id}`} onClick={() => setIsOpen(false)}>
                                         <strong>User {noti.sender_id} </strong> {t('commented_on_your_thread')}
