@@ -69,7 +69,7 @@ function MainPage() {
               ))}
             </ul>
 
-            <h2>🔥{t('latest_threads')}</h2>
+            <h2>🆕{t('latest_threads')}</h2>
             <ul className="thread-list">
               {latestThreads.map(thread => (
                 <li key={thread.id} className="thread-item">
