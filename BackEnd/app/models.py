@@ -32,3 +32,24 @@ class Post (db.Model):
     thread_id = db.Column(db.Integer, db.ForeignKey('thread.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     ip = db.Column(db.String(45), nullable=False)
+
+# 알림 기능 Notification
+class Notification (db.Model) :
+    id = db.Column(db.Integer, primary_key=True)
+    # 알림 수신
+    recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    # 알림 발신
+    sender_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    # 알림 발생한 해당 게시물
+    thread_id = db.Column(db.Integer, db.ForeignKey('thread.id'), nullable=True)
+    # 알림 발생한 해당 댓글
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=True)
+    # 해당 알림의 종류
+    notification_type = db.Column(db.String(50), nullable=False)
+    # 알림 확인 여부
+    is_read = db.Column(db.Boolean, default=False, nullable=False)
+    # 알림 시간
+    created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    # 관계 설정 (User 모델과 관계)
+    recipient = db.relationship('User', foreign_keys=[recipient_id], backref='notifications_received')
+    sender = db.relationship('User', foreign_keys=[sender_id], backref='notifications_sent')
