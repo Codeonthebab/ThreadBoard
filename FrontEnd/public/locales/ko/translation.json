@@ -37,5 +37,6 @@
     "add_comment" : "이 스레드에 댓글 달기",
     "enter_comment_placeholder" : "댓글을 작성해주세요!",
     "submitting" : "댓글 남기는 중",
-    "submit_comment" : "댓글 남기기"
+    "submit_comment" : "댓글 남기기",
+    "notifications" : "알림 목록"
 }
