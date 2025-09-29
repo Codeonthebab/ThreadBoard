@@ -7,6 +7,7 @@ from .extensions import db, bcrypt
 """블루프린트 객체들 소환"""
 from .routes.auth import auth_bp
 from .routes.threads import threads_bp
+from .routes.notifications import notifications_bp
 
 def create_app(config_class=Config):
     """App 함수들"""
@@ -31,6 +32,7 @@ def create_app(config_class=Config):
     # 블루프린트(routes) 등록
     app.register_blueprint(auth_bp)
     app.register_blueprint(threads_bp)
+    app.register_blueprint(notifications_bp)
 
     @app.route('/')
     def index():
