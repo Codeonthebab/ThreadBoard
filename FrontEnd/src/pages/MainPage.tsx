@@ -17,6 +17,7 @@ function MainPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+
   const [popularthreads, setPopularThreads] = useState<Thread[]>([]);
   const [latestThreads, setLatestThreads] = useState<Thread[]>([]);
   const [error, setError] = useState<string | null>(null);
