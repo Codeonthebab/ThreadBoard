@@ -31,7 +31,7 @@ class Post (db.Model):
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     thread_id = db.Column(db.Integer, db.ForeignKey('thread.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    ip = db.Column(db.String(45), nullable=False)
+    ip = db.Column(db.String(100), nullable=False)
 
 # 알림 기능 Notification
 class Notification (db.Model) :
