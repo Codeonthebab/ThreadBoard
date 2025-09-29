@@ -80,23 +80,29 @@ function PopularThreadsPage () {
                         ))}
                     </tbody>
                 </table>
+                
                 {PageInfo && (
                     <div className="pagination-controls">
+                        
                         <button
                         onClick={() => setCurrentPage(currentPage - 1)}
                         disabled={currentPage === 1 }
                         >
                             {t('previous')}
                         </button>
+                        
                         <span>Page {PageInfo.page} of {PageInfo.pages}</span>
+                        
                         <button
                         onClick={() => setCurrentPage(currentPage + 1)}
                         disabled={currentPage === PageInfo.pages}
                         >
                             {t('next')}
                         </button>
+
                     </div>
                 )}
+                
             </div>
         </div>
     );
