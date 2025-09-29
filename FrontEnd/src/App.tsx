@@ -12,6 +12,7 @@ import LatestThreadsPage from "./pages/LatestThreadsPage";
 import ThreadInfoPage from "./pages/ThreadInfoPage";
 import LanguageSwitcher from "./contexts/LanguageSwitcher";
 import LogoSection from "./components/LogoSection";
+import NotificationBell from "./components/NotificationBell";
 import { Verify } from "crypto";
 import { useTranslation } from "react-i18next";
 
@@ -48,6 +49,7 @@ function App() {
         </nav>
 
         <div className="header-right">
+        <NotificationBell />
         <LoginState />
         <LanguageSwitcher />
         </div>
