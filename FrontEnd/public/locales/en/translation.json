@@ -38,5 +38,7 @@
   "enter_comment_placeholder": "Please write a comment!",
   "submitting" : "Submitting Comments",
   "submit_comment" : "Submit Comments",
-  "notifications" : "Notification list"
+  "notifications" : "Notification list",
+  "no_notifications" : "No notifications.",
+  "commented_on_your_thread" : ", commented on your thread."
 }
