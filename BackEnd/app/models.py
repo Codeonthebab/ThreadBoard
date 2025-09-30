@@ -53,3 +53,14 @@ class Notification (db.Model) :
     # 관계 설정 (User 모델과 관계)
     recipient = db.relationship('User', foreign_keys=[recipient_id], backref='notifications_received')
     sender = db.relationship('User', foreign_keys=[sender_id], backref='notifications_sent')
+    
+# 스레드별 익명 ID 모델
+class AnonymousId(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    thread_id = db.Column(db.Integer, db.ForeignKey('thread.id'), nullable=False)
+    # 특정 스레드 내에서 사용될 8자리 임시 ID
+    anonymous_id = db.Column(db.String(8), nullable=False)
+
+    # user_id와 thread_id의 조합이 항상 고유하도록 제약조건 설정
+    __table_args__ = (db.UniqueConstraint('user_id', 'thread_id', name='_user_thread_uc'),)
