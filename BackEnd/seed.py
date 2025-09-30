@@ -13,7 +13,7 @@ with app.app_context() :
     
     # 계정 정보 생성
     print("관리자 계정 생성")
-    hashed_password = bcrypt.generate_password_hash('admin123').decode('utf-8')
+    hashed_password = bcrypt.generate_password_hash('test1').decode('utf-8')
     admin_user = User(
         username = 'admin',
         password = hashed_password,
