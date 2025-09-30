@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Notificationbell.css';
+import { error } from 'console';
 
 
 interface Notificationbell {
@@ -21,6 +22,7 @@ function NotificationBell() {
     const [ isOpen, setIsOpen ] = useState(false);
     const [ notifications, setNotifications ] = useState<Notificationbell[]>([]);
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (token) {
@@ -56,6 +58,29 @@ function NotificationBell() {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [token]);
+
+    const handleNotificationClick = async (notificationId: number, threadId: number) => {
+        setNotifications(currentNotifications => 
+            currentNotifications.map(n =>
+                n.id === notificationId ? { ...n, is_read : true } : n
+            )
+        );
+
+        // 알림 클릭하면 해당 드롭다운된 알림 닫기
+        setIsOpen(false);
+
+        try {
+            await fetch (`${process.env.REACT_APP_API_BASE_URL}/notifications/${notificationId}/read`, {
+                method : 'POST',
+                headers : {
+                    'Authorization' : `Bearer ${token}`,
+                },
+            });
+        } catch (err) {
+            console.error("알림 읽어오기 실패함, 이유 : ", error);
+        }
+        navigate(`/threads/${threadId}`);
+    };
 
     const unreadCount = notifications.filter(n => !n.is_read).length;
 
