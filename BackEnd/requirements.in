@@ -3,6 +3,7 @@ Flask
 Flask-Cors
 Flask-SQLAlchemy
 Flask-Bcrypt
+Flask-Migrate
 #Flask-Mail Render정책으로 인해 SendGrid로 변경
 
 # JWT for token authentication
