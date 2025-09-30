@@ -1,158 +1,177 @@
 # ThreadBoard
 
-##Table
-- User, Thread, Post
+익명 게시판 프로젝트입니다. 사용자는 이메일 인증을 통해 가입하고, 스레드별로 부여되는 임시 익명 ID를 사용하여 자유롭게 토론에 참여할 수 있습니다.
 
-[User]
-- id, username, password, email, created_at
+---
 
-[Thread]
-- id, title, created_at, user_id
+## 🚀 Live Demo
+- **Frontend (Vercel):** [https://thread-board.vercel.app](https://thread-board.vercel.app)  
+- **Backend (Render):** [https://threadboard.onrender.com](https://threadboard.onrender.com)  
 
-[Post]
-- id, content, depth, created_at, thread_id,
-    user_id, ip
+---
 
+## 🛠 Tech Stack
+- **Frontend:** React, TypeScript, React Router, i18next  
+- **Backend:** Python, Flask, Flask-SQLAlchemy, PostgreSQL  
+- **Deployment:** Vercel (Frontend), Render.com (Backend, DB)  
+- **Key Libraries:** SendGrid (Email), Flask-Migrate (DB Schema Management), JWT (Authentication)  
 
-[✅ ThreadBoard 프로젝트: API 연동 체크리스트]
+---
+
+## 📋 데이터베이스 스키마
+Flask-Migrate를 통해 데이터베이스 버전이 관리되고 있습니다.
+
+| Table        | Column          | Type     | Details                                   |
+|--------------|----------------|----------|-------------------------------------------|
+| **User**     | id             | Integer  | Primary Key                               |
+|              | username       | String   | Unique, Not Null                          |
+|              | password       | String   | Hashed, Not Null                          |
+|              | email          | String   | Unique, Not Null                          |
+|              | is_verified    | Boolean  | Default: False                            |
+|              | location       | String   | Not Null                                  |
+|              | created_at     | DateTime | Default: utcnow                           |
+| **Thread**   | id             | Integer  | Primary Key                               |
+|              | title          | String   | Not Null                                  |
+|              | view_count     | Integer  | Default: 0                                |
+|              | created_at     | DateTime | Default: utcnow                           |
+|              | user_id        | Integer  | Foreign Key (user.id)                     |
+| **Post**     | id             | Integer  | Primary Key                               |
+|              | content        | Text     | Not Null                                  |
+|              | depth          | Integer  | Default: 0                                |
+|              | created_at     | DateTime | Default: utcnow                           |
+|              | thread_id      | Integer  | Foreign Key (thread.id)                   |
+|              | user_id        | Integer  | Foreign Key (user.id)                     |
+|              | ip             | String   | Not Null                                  |
+| **Notification** | id         | Integer  | Primary Key                               |
+|              | recipient_id   | Integer  | Foreign Key (user.id)                     |
+|              | sender_id      | Integer  | Foreign Key (user.id)                     |
+|              | thread_id      | Integer  | Foreign Key (thread.id), Nullable         |
+|              | post_id        | Integer  | Foreign Key (post.id), Nullable           |
+|              | notification_type | String | Not Null (e.g., 'new_post')               |
+|              | is_read        | Boolean  | Default: False                            |
+|              | created_at     | DateTime | Default: utcnow                           |
+| **AnonymousId** | id          | Integer  | Primary Key                               |
+|              | user_id        | Integer  | Foreign Key (user.id)                     |
+|              | thread_id      | Integer  | Foreign Key (thread.id)                   |
+|              | anonymous_id   | String   | 8-digit random string                     |
+
+---
+
+## ✅ API 연동 체크리스트
+
 ### 🌍 전역 및 환경 설정 (Global & ENV)
+- [x] API 기본 URL 설정: `.env` 파일을 통해 개발/배포 환경의 API 주소를 관리합니다.  
+- [x] CORS 정책 확인: 백엔드(`__init__.py`)에 로컬 개발(localhost:3000) 및 배포 주소를 모두 허용합니다.  
 
-- [x] API 기본 URL 설정: 프론트엔드 코드 전반에 걸쳐 process.env.REACT_APP_API_BASE_URL을 사용하여 API 주소를 환경에 따라 관리하고 있습니다.
+**인증 컨텍스트 (AuthContext):**  
+- [x] 로그인 성공 시, JWT 토큰이 localStorage에 `authToken` 키로 저장됩니다.  
+- [x] 앱 로드 시, localStorage의 토큰을 읽어와 사용자 로그인 상태를 복원합니다.  
+- [x] 로그아웃 시, localStorage에서 토큰이 정상적으로 제거됩니다.  
 
-- [x] CORS 정책 확인: 백엔드(__init__.py)에 로컬 개발 주소(http://localhost:3000)와 배포 주소(https://thread-board.vercel.app)가 모두 올바르게 포함되어 있습니다.
+---
 
-##### 인증 컨텍스트 (AuthContext):
-- [x] 로그인 성공 시, JWT 토큰이 localStorage에 authToken이라는 키로 저장됩니다.
+## 👤 사용자 인증 API (`/routes/auth.py`)
 
-- [x] 앱 로드 시, localStorage의 토큰을 읽어와 사용자 로그인 상태를 복원합니다.
+### 회원가입 (POST `/userProc`)
+**[백엔드]:**
+- [x] 필수 필드 누락 시 `400` 에러 반환  
+- [x] username 또는 email 중복 시 `409` 에러 반환  
+- [x] 비밀번호 해싱 후 DB 저장  
+- [x] SendGrid를 통한 이메일 인증 링크 발송  
 
-- [x] 로그아웃 시, localStorage에서 토큰이 정상적으로 제거됩니다.
+**[프론트엔드 - `RegisterPage.tsx`]:**
+- [x] 모든 필드 JSON body 전송  
+- [x] 성공(201) 시 "이메일을 확인해주세요" 메시지 표시  
+- [x] 실패 시 적절한 에러 메시지 표시  
 
-### 👤 사용자 인증 API (/auth.py)
+### 이메일 인증 (GET `/verify/:token`)
+**[백엔드]:**
+- [x] 유효하지 않거나 만료된 토큰 시 `400` 에러 반환  
+- [x] 인증 성공 시 `user.is_verified = True`  
 
-#### 회원가입 (POST /userProc)
+**[프론트엔드 - `VerifyPage.tsx`]:**
+- [x] URL 파라미터 토큰으로 API 호출  
+- [x] 성공/실패 메시지 및 로그인 링크 표시  
 
-##### [백엔드]:
-- [x] 필수 필드 누락 시 400 에러를 반환합니다.
+### 로그인 (POST `/login`)
+**[백엔드]:**
+- [x] 필수 필드 누락 시 `400` 에러  
+- [x] 자격 증명 실패 시 `401` 에러  
+- [x] 이메일 미인증 시 `403` 에러  
+- [x] 로그인 성공 시 JWT 토큰 반환  
 
-- [x] username 또는 email 중복 시 409 에러를 반환합니다.
+**[프론트엔드 - `LoginPage.tsx`]:**
+- [x] 성공 시 토큰 저장 및 메인 페이지 이동  
+- [x] 실패 시 에러 메시지 표시  
 
-- [x] 비밀번호가 정상적으로 해싱되어 DB에 저장됩니다.
+---
 
-- [x] SendGrid를 통한 이메일 인증 링크가 정상적으로 발송됩니다.
+## 📋 스레드 & 게시물 API (`/routes/threads.py`)
 
-##### [프론트엔드 - RegisterPage.tsx]:
-- [x] Content-Type: application/json 헤더가 포함되어 있습니다.
+### 스레드 생성 (POST `/threads`)
+**[백엔드]:**
+- [x] 인증된 사용자만 접근 (`@token_required`)  
+- [x] Thread와 첫 Post 생성  
 
-- [x] 모든 필드 값을 JSON 형태로 body에 담아 보냅니다.
+**[프론트엔드 - `insertThread.tsx`]:**
+- [x] Authorization 헤더 포함  
+- [x] 성공 시 상세 페이지로 이동  
 
-- [x] 회원가입 성공(201) 시, 안내 메시지가 표시됩니다.
+### 스레드 목록 조회 (GET `/threads/popular`, `/threads/latest`)
+**[백엔드]:**
+- [x] 인기순, 최신순 정렬  
+- [x] `page`, `per_page` 기반 페이징 정상 동작  
 
-- [x] 실패 시, 사용자에게 적절한 에러 메시지를 보여줍니다.
+**[프론트엔드]:**
+- [x] 올바른 API 호출  
+- [x] 페이징 기능 정상 동작  
+- [x] 리스트 렌더링 정상 동작  
 
-#### 이메일 인증 (GET /verify/:token)
+### 특정 스레드 상세 조회 (GET `/threads/:thread_id`)
+**[백엔드]:**
+- [x] 존재하지 않는 ID 시 `404` 에러  
+- [x] 조회 시 `view_count` 증가  
+- [x] 익명 ID(author_id) 반환  
 
-##### [백엔드]:
-- [x] 유효하지 않은 토큰에 대해 400 에러를 반환합니다.
+**[프론트엔드 - `ThreadInfoPage.tsx`]:**
+- [x] API 호출 및 스레드 정보 표시  
+- [x] 로딩/에러 처리  
 
-- [x] 토큰에 해당하는 사용자가 없을 때 404 에러를 반환합니다.
+### 스레드 삭제 (DELETE `/threads/:thread_id`)
+**[백엔드]:**
+- [x] 인증된 사용자만 접근  
+- [x] 작성자가 아닐 경우 `403` 반환  
+- [x] 삭제 성공 시 연관 Post 함께 삭제  
 
-- [x] 성공적으로 인증되면 user.is_verified가 True로 변경됩니다.
+**[프론트엔드]:**
+- [ ] 삭제 버튼 및 API 연동 구현 필요  
+- [ ] UI 갱신 필요  
 
+---
 
-##### [프론트엔드 - VerifyPage.tsx]:
-- [x] URL 파라미터에서 토큰을 가져와 API를 호출합니다.
+## 🔔 알림 API (`/routes/notifications.py`)
 
-- [x] 인증 상태에 따라 "인증 중", "성공", "실패" 메시지를 보여줍니다.
+### 알림 생성 (댓글 작성 시)
+**[백엔드]:**
+- [x] 다른 사용자의 스레드에 댓글 작성 시 알림 생성  
+- [x] 자기 자신의 스레드에는 알림 생성되지 않음  
 
-- [x] 인증 완료 후 로그인 페이지로 이동할 수 있는 링크를 제공합니다.
+### 알림 목록 조회 (GET `/notifications`)
+**[백엔드]:**
+- [x] 인증된 사용자만 자신의 알림 조회 가능  
 
-#### 로그인 (POST /login)
+**[프론트엔드 - `NotificationBell.tsx`]:**
+- [x] 로그인 시 읽지 않은 알림 수 표시  
+- [x] 아이콘 클릭 시 드롭다운으로 알림 목록 표시  
 
-##### [백엔드]:
-- [x] username 또는 password 누락 시 400 에러를 반환합니다.
+### 알림 읽음 처리 (POST `/notifications/:id/read`)
+**[백엔드]:**
+- [x] 인증된 사용자만 접근 가능  
+- [x] 다른 사람 알림 접근 시 `403` 에러  
+- [x] `is_read` 상태 True로 변경  
 
-- [x] 자격 증명 실패 시 401 에러를 반환합니다.
+**[프론트엔드 - `NotificationBell.tsx`]:**
+- [x] 알림 클릭 시 읽음 처리 및 해당 스레드로 이동  
+- [x] UI 즉시 업데이트 (낙관적 업데이트)  
 
-- [x] 이메일 미인증 사용자에 대해 403 에러를 반환합니다.
-
-- [x] 로그인 성공 시, JWT 토큰을 정상적으로 반환합니다.
-
-##### [프론트엔드 - LoginPage.tsx]:
-- [x] Content-Type: application/json 헤더가 포함되어 있습니다.
-
-- [x] username, password 값을 JSON 형태로 body에 담아 보냅니다.
-
-- [x] 로그인 성공 시, 토큰을 저장하고 메인 페이지로 이동합니다.
-
-- [x] 로그인 실패 시, 에러 메시지를 화면에 표시합니다.
-
-### 📋 스레드 & 게시물 API (/threads.py)
-
-#### 스레드 생성 (POST /threads)
-
-##### [백엔드]:
-- [x] 토큰 없이는 접근이 차단됩니다 (@token_required).
-
-- [x] title이 없으면 400 에러를 반환합니다.
-
-- [x] Thread와 첫 Post가 현재 로그인된 사용자의 ID로 정상적으로 생성됩니다.
-
-##### [프론트엔드 - insertThread.tsx]:
-- [x] Authorization: Bearer ${token} 헤더가 올바르게 포함됩니다.
-
-- [x] title, content 값을 JSON 형태로 body에 담아 보냅니다.
-
-- [x] 스레드 생성 성공 시, 생성된 스레드의 상세 페이지로 이동합니다.
-
-- [x] 로그인하지 않은 상태에서 시도할 경우 적절한 메시지를 보여줍니다.
-
-#### 스레드 목록 조회 (GET /threads/popular, /threads/latest)
-
-##### [백엔드]:
-- [x] GET /threads/popular API가 인기순(댓글 수, 조회수)으로 정렬됩니다.
-
-- [x] GET /threads/latest API가 최신순으로 정렬됩니다.
-
-- [x] page, per_page 파라미터를 이용한 페이징이 정상 동작합니다.
-
-##### [프론트엔드 - PopularThreadsPage.tsx, LatestThreadsPage.tsx]:
-- [x] 각 페이지가 목적에 맞는 API(.../popular, .../latest)를 호출합니다.
-
-- [x] 페이징(다음/이전 버튼) 기능이 currentPage state를 변경하며 API를 다시 호출합니다.
-
-- [x] API로부터 받은 스레드 목록을 화면에 올바르게 렌더링합니다.
-
-- [x] 데이터 로딩 실패 시, 에러 메시지를 사용자에게 보여줍니다.
-
-#### 특정 스레드 상세 조회 (GET /threads/:thread_id)
-##### [백엔드]:
-- [x] 존재하지 않는 thread_id에 대해 404 에러를 반환합니다.
-
-- [x] API 호출 시, 해당 스레드의 view_count가 1 증가합니다.
-
-- [x] 스레드 정보와 해당 스레드에 속한 모든 Post 목록을 함께 반환합니다.
-
-##### [프론트엔드 - (상세 페이지 구현 시)]:
-- [ ] URL의 :thread_id를 이용해 올바른 API를 호출하나요?
-
-- [ ] 스레드 제목, 내용, 그리고 이후 댓글들을 모두 화면에 표시하나요?
-
-- [ ] 로딩 및 에러 상태를 적절히 처리하나요?
-
-#### 스레드 삭제 (DELETE /threads/:thread_id)
-##### [백엔드]:
-- [x] 토큰 없이는 접근이 차단됩니다.
-
-- [x] 스레드 작성자가 아닌 다른 사용자가 삭제 시도 시 403 에러를 반환합니다.
-
-- [x] 존재하지 않는 thread_id에 대해 404 에러를 반환합니다.
-
-- [x] 삭제 성공 시, 연관된 모든 Post가 함께 삭제됩니다.
-
-##### [프론트엔드 - (삭제 기능 구현 시)]:
-- [ ] fetch 요청 시 Authorization 헤더가 올바르게 포함되나요?
-
-- [ ] 삭제 성공 후, UI를 적절히 갱신하나요?
-
-- [ ] 권한이 없거나 실패했을 때 사용자에게 알림을 주나요?
+---
