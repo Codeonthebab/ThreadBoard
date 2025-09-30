@@ -33,6 +33,9 @@ def mark_notification_as_read (current_user, notification_id) :
     if not notification :
         return jsonify({'error' : '존재하지 않는 알림입니다.'}), 404
     
+    # API 요청 시, 임의적으로 '읽음' 처리할 수 있는 부분을 분기점으로..
+    if notification.recipient_id != current_user.id :
+        return jsonify({'error' : '권한이 없습니다.'}), 403
     
     if not notification.is_read :
         notification.is_read = True
