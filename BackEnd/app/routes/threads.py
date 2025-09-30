@@ -1,8 +1,11 @@
 from flask import Blueprint, jsonify, request
 from .auth import token_required #토큰 검사 데코레이터 호출
-from ..extensions import db
-from ..models import Thread, Post, User, Notification
 from sqlalchemy import func
+import random
+import string
+
+from ..extensions import db
+from ..models import Thread, Post, User, Notification, AnonymousId
 
 #Blueprint 설정
 threads_bp = Blueprint('threads', __name__)
@@ -52,12 +55,39 @@ def get_thread_with_posts(thread_id):
     if not thread:
         return jsonify({"error": "해당 스레드를 찾을 수 없습니다."}), 404
     
+    # 익명 ID 생성 및 삽입, 매핑
+    author_ids = {post.user_id for post in thread.posts}
+    
+    existing_anonymous_ids = AnonymousId.query.filter(
+        AnonymousId.thread_id == thread_id,
+        AnonymousId.user_id.in_(author_ids)
+    ).all()
+    
+    author_map = {anon.user_id : anon.anonymous_id for anon in existing_anonymous_ids}
+    
+    new_anonymous_entries = []
+    for user_id in author_ids :
+        if user_id not in author_map :
+            # 랜덤 문자열로 ID 생성
+            new_id = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+            # Anonymous 객체 생성
+            new_entry = AnonymousId(user_id=user_id, thread_id=thread_id, anonymous_id=new_id)
+            new_anonymous_entries.append(new_entry)
+            
+            author_map[user_id] = new_id
+    
+    if new_anonymous_entries :
+        #객체를 한번에 저장
+        db.session.bulk_save_objects(new_anonymous_entries) 
+        db.session.commit()
+        
     # 스레드 정보를 딕셔너리로 변환하는 코드
     thread_data = {
         'id': thread.id,
         'title': thread.title,
         'created_at': thread.created_at.isoformat(),
-        'user_id': thread.user_id,
+        #'user_id': thread.user_id,
+        'author_id' : author_map.get(thread.user_id),
         'view_count': thread.view_count
     }
 
@@ -66,7 +96,8 @@ def get_thread_with_posts(thread_id):
         'id': post.id,
         'content': post.content,
         'created_at': post.created_at.isoformat(),
-        'user_id': post.user_id
+        #'user_id': post.user_id
+        'author_id' : author_map.get(post.user_id),
     } for post in thread.posts]
 
     # 스레드 정보 게시물 목록 반환 시킴
