@@ -3,7 +3,6 @@ import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import './Notificationbell.css';
-import { error } from 'console';
 
 
 interface Notificationbell {
@@ -77,7 +76,7 @@ function NotificationBell() {
                 },
             });
         } catch (err) {
-            console.error("알림 읽어오기 실패함, 이유 : ", error);
+            console.error("알림 읽어오기 실패함, 이유 : ", err);
         }
         navigate(`/threads/${threadId}`);
     };
