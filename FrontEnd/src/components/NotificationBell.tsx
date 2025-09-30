@@ -101,9 +101,9 @@ function NotificationBell() {
                         <ul className = "notification-list">
                             {notifications.map (noti => (
                                 <li key={noti.id} className={`notification-item ${!noti.is_read ? 'unread' : ''}`}>
-                                    <Link to={`/thread/${noti.thread_id}`} onClick={() => setIsOpen(false)}>
-                                        <strong>User {noti.sender_id} </strong> {t('commented_on_your_thread')}
-                                    </Link>
+                                    <div onClick={() => handleNotificationClick(noti.id, noti.thread_id)} style={{cursor : 'pointer'}}>
+                                        <strong>{noti.sender_id}</strong>{t('commented_on_your_thread')}
+                                    </div>
                                 </li>
                             ))}
                         </ul>
