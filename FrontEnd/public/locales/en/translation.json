@@ -20,6 +20,7 @@
   "date" : "Date",
   "views" : "Views",
   "posts" : "Posts",
+  "Writer" : "Writer",
   "thread_not_found" : "Can not be found",
   "loading" : "Reading it",
   "operator_notice" : "Notice",
