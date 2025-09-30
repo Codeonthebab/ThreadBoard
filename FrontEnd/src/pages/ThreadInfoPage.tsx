@@ -9,7 +9,7 @@ interface  ThreadData {
     id : number;
     title : string;
     created_at : string;
-    user_id : number;
+    author_id: string; // user_id : number;
     view_count : number;
 }
 
@@ -17,7 +17,7 @@ interface PostData {
     id : number;
     content : string;
     created_at : string;
-    user_id : number;
+    author_id: string; // user_id : number;
 }
 
 function ThreadInfoPage () {
@@ -75,7 +75,7 @@ function ThreadInfoPage () {
                 <header className="thread-header">
                     <h1>{thread.title}</h1>
                     <div className="thread-meta">
-                        <span>{t('author')} : ${thread.user_id}</span> |
+                        <span>{t('author')} : {thread.author_id}</span> |
                         <span>{t('date')} : {new Date(thread.created_at).toLocaleString()}</span> |
                         <span>{t('views')} : {thread.view_count}</span>
                     </div>
@@ -84,7 +84,7 @@ function ThreadInfoPage () {
                     {posts.map((post, index) => (
                         <article key={post.id} className="post-item">
                             <div className="post-header">
-                                <strong>#{index+1}</strong> by User {post.user_id} at {new Date(post.created_at).toLocaleString()}
+                                <strong>#{index+1}</strong> 👤{t('Writer')} {post.author_id} 📅{t('at')} {new Date(post.created_at).toLocaleString()}
                             </div>
                             <p className="post-content">{post.content}</p>
                         </article>
