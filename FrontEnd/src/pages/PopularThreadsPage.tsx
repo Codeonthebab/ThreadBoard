@@ -72,7 +72,7 @@ function PopularThreadsPage () {
                     <tbody>
                         {threads.map(thread => (
                             <tr key={thread.id}>
-                                <td><Link to = {`/thread/${thread.id}`}>{thread.title}</Link></td>
+                                <td><Link to = {`/threads/${thread.id}`}>{thread.title}</Link></td>
                                 <td>{thread.post_count}</td>
                                 <td>{thread.view_count}</td>
                                 <td>{new Date(thread.created_at).toLocaleDateString()}</td>
