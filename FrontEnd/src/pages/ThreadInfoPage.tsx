@@ -105,6 +105,11 @@ function ThreadInfoPage () {
                         <span>{t('date')} : {new Date(thread.created_at).toLocaleString()}</span> |
                         <span>{t('views')} : {thread.view_count}</span>
                     </div>
+                    {user && thread && user.user_id === thread.user_id && (
+                        <button onClick={handleDelete} className="delete-button">
+                            {t('delete_thread') || '삭제'}
+                        </button>
+                    )}
                 </header>
                 <section className="posts-list">
                     {posts.map((post, index) => (
