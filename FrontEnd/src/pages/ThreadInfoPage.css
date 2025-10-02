@@ -103,6 +103,19 @@
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
+.delete-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Yomogi', 'Noto Serif KR', serif;
+  font-size: 0.7;
+  float: right;
+}
+
+
 /* --- 모바일 대응 --- */
 @media (max-width: 600px) {
   .thread-info-background {
