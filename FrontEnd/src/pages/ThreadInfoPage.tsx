@@ -9,7 +9,8 @@ interface  ThreadData {
     id : number;
     title : string;
     created_at : string;
-    author_id: string; // user_id : number;
+    user_id : number;
+    author_id: string;
     view_count : number;
 }
 
