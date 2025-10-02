@@ -1,52 +1,49 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect} from 'react';
 import { jwtDecode } from 'jwt-decode';
 
-interface UserPayload {
+interface User{
     user_id: number;
     username: string;
+    exp : number;
 }
 
 interface AuthContextType {
     token: string | null;
-    user: UserPayload | null;
+    user: User | null;
     login: (token: string) => void;
     logout: () => void;
-    isAuthenticated: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
-    const [token, setToken] = useState<string | null>(null);
-    const [user, setUser] = useState<UserPayload | null>(null);
+export const AuthProvider : React.FC<{ children : React.ReactNode }> = ({ children }) => {
+    const [token, setToken] = useState(localStorage.getItem('authToken'));
+    const [user, setUser] = useState<User | null>(null);
 
     // 컴포넌트가 처음 마운트 될 때, 한 번만 실행
     useEffect(() => {
-        const storedToken = localStorage.getItem('authToken');
-        if (storedToken) {
+        if (token) {
             try {
-                const decodedUser = jwtDecode<UserPayload>(storedToken);
-                console.log('User from localStorage: ', decodedUser);
-                setToken(storedToken);
+                const decodedUser : User = jwtDecode(token);
                 setUser(decodedUser);
-            } catch (error) {
+                console.log('User from Login ? => ', decodedUser);
+            } catch (err) {
+                console.error("Invalid token :", err);
+
                 localStorage.removeItem('authToken');
+                setToken(null);
+                setUser(null);
             }
+        } else {
+            setUser(null);
         }
-    }, []); // []는 중복 실행 방지할 때 씀
-    // 의존성 배열이 비어있어서 이 컴포넌트 실행될 때, localStorage에 토큰이 있는지 확인하는 용도로 사용
+    }, [token]);
+    // 의존성 배열이 비어있어서 이 컴포넌트 실행될 때, 토큰이 있는지 확인하는 용도로 사용
 
     // 로그인 함수
     const login = (newToken: string) => {
-        try {
-            const decodedUser = jwtDecode<UserPayload>(newToken);
-            console.log('User from login: ', decodedUser);
-            localStorage.setItem('authToken', newToken); // localStorage에 토큰 저장함
-            setToken(newToken); // 새로운 토큰 발급하고 리액트의 state에 상태 업데이트 함
-            setUser(decodedUser); // 디코딩한 사용자 정보 저장
-        } catch (error) {
-            console.error("Invalid token: ", error);
-        }
+        localStorage.setItem('authToken', newToken);
+        setToken(newToken);
     };
 
     // 로그아웃 함수
@@ -57,8 +54,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
 
     // Context를 통해 전달할 값, "login, logout" 함수를 객체로 묶어놓음
-    const isAuthenticated = !!token; // 토큰 유무 확인 후, 로그인 상태 함수를 계산
-    const value = { token, login, logout, isAuthenticated, user };
+    const value = { token, login, logout, user };
     
     return (
         <AuthContext.Provider value={ value }>
