@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../contexts/AuthContext";
 import AddPostForm from "../components/AddPostForm";
@@ -24,12 +24,37 @@ interface PostData {
 function ThreadInfoPage () {
     const { t } = useTranslation();
     const { thread_id } = useParams<{thread_id:string}> (); // URL에서 Thread_id 가져옴
-    const { token } = useAuth();
+    const { token, user } = useAuth();
+    const navigate = useNavigate();
 
     const [thread, setThread] = useState<ThreadData | null> (null)
     const [posts, setPosts] = useState<PostData[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string|null>(null);
+
+    const handleDelete = async () => {
+        if (window.confirm(t('confirm_delete_thread') || '해당 스레드를 삭제하십니까?')) {
+            try {
+                const response = await fetch (`${process.env.REACT_APP_API_BASE_URL}/threads/${thread_id}`,{
+                    method : 'DELETE',
+                    headers : {
+                        'Authorization' : `Bearer ${token}`,
+                    },
+                });
+
+                if (response.ok) {
+                    alert(t('delete_success') || '스레드가 삭제되었습니다.');
+                    navigate ('/');
+                } else {
+                    const data = await response.json();
+                    alert(t('delete_failed') || `삭제에 실패했습니다. 이유 : ${data.error}`);
+                }
+            } catch (err) {
+                console.error("Failed to delete thread : ", err);
+                alert(t('delete_error') || '삭제 중 오류가 발생했습니다.');
+            }
+        }
+    };
 
     useEffect (() => {
         const fetchThreadInfoPage = async () => {
