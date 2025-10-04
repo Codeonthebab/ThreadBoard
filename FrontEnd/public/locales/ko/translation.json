@@ -6,6 +6,7 @@
     "content": "내용",
     "create_thread": "스레드 추가",
     "login": "로그인",
+    "login_failed" : "로그인에 실패했습니다.",
     "logout": "로그아웃",
     "signup": "회원가입",
     "id": "아이디",

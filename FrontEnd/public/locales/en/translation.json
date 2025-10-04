@@ -6,6 +6,7 @@
   "content": "Content",
   "create_thread": "Create Thread",
   "login": "Login",
+  "login_failed" : "Login failed",
   "logout": "Logout",
   "signup": "Sign-up",
   "id": "ID",
