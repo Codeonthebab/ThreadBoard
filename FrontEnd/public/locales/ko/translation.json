@@ -7,6 +7,7 @@
     "create_thread": "스레드 추가",
     "login": "로그인",
     "submitting_to_login" : "로그인 중..",
+    "None_account" : "계정이 없으신가요?",
     "login_failed" : "로그인에 실패했습니다.",
     "logout": "로그아웃",
     "signup": "회원가입",

@@ -8,6 +8,7 @@
   "login": "Login",
   "login_failed" : "Login failed",
   "submitting_to_login": "Logging in...",
+  "None_account" : "Don't you have an account?",
   "logout": "Logout",
   "signup": "Sign-up",
   "id": "ID",
