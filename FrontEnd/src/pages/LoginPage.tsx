@@ -77,7 +77,7 @@ function LoginPage() {
               htmlFor="username"
               className="text-sm font-medium text-gray-700"
             >
-              {t("id")}
+              {/*t("id")*/}
             </label>
 
             <input
@@ -99,7 +99,7 @@ function LoginPage() {
               htmlFor="password"
               className="text-sm font-medium text-gray-700"
             >
-              {t("password")}
+              {/*t("password")*/}
             </label>
 
             <input
