@@ -25,5 +25,5 @@ export const getColorByAuthorId = (id : string | null | undefined) : string => {
     const saturation = 70;
     const lightness = 85;
 
-    return `hsl(${hue}, ${saturation}, ${lightness})`;
+    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 };
