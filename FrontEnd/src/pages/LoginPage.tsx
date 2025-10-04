@@ -126,7 +126,7 @@ function LoginPage() {
             focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
             disabled:bg-indigo-400 disabled:cursor-not-allowed"
             >
-              {loading ? t("submitting") : t("login")}
+              {loading ? t("submitting_to_login") : t("login")}
             </button>
           </div>
 
