@@ -170,7 +170,7 @@ function Register() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full px-4 py-2 font-semibold text-white bg-indigo-600 
+              className="px-8 py-4 font-semibold text-white bg-indigo-600 
               rounded-md shadow-sm hover:bg-indigo-700 
               focus:outline-none focus:ring-2 focus:ring-offset-2 
               focus:ring-indigo-500 disabled:bg-indigo-400"
