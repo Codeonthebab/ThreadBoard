@@ -103,12 +103,13 @@ function Register() {
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* ID 부분 */}
           <div>
-            <label>{t("id")} : </label>
+            {/*<label>{t("id")} : </label>*/}
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
+              placeholder="ID"
               className="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300
               rounded-md shadow-sm
               focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -116,12 +117,13 @@ function Register() {
           </div>
           {/* 패스워드 부분 */}
           <div>
-            <label>{t("password")} : </label>
+            {/*<label>{t("password")} : </label>*/}
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              placeholder="password"
               className="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300
               rounded-md shadow-sm
               focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -129,12 +131,13 @@ function Register() {
           </div>
           {/* 이메일 인증 부분 */}
           <div>
-            <label>{t("email")} : </label>
+            {/*<label>{t("email")} : </label>*/}
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              placeholder="email_verified@verified.com"
               className="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300
               rounded-md shadow-sm
               focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -146,7 +149,7 @@ function Register() {
               htmlFor="location"
               className="text-sm font-medium text-gray-700"
             >
-              {t("location")} :
+              {t("location")}
             </label>
             <select
               id="location"
@@ -169,7 +172,7 @@ function Register() {
               disabled={loading}
               className="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300
               rounded-md shadow-sm
-              focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              focus:outline-none focus:ring-2 focus:ring-indigo-200"
             >
               {loading ? t("submitting_register") : t("signup")}
             </button>
@@ -180,7 +183,7 @@ function Register() {
         <div className="text-sm text-center">
           <span className="text-gray-600">{t('you_got_account')}</span>
           <Link to="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
-            {t('login')}
+            &nbsp;{t('login')}
           </Link>
         </div>
       </div>
