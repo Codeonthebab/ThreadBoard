@@ -170,9 +170,10 @@ function Register() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300
-              rounded-md shadow-sm
-              focus:outline-none focus:ring-2 focus:ring-indigo-200"
+              className="w-full px-4 py-2 font-semibold text-white bg-indigo-600 
+              rounded-md shadow-sm hover:bg-indigo-700 
+              focus:outline-none focus:ring-2 focus:ring-offset-2 
+              focus:ring-indigo-500 disabled:bg-indigo-400"
             >
               {loading ? t("submitting_register") : t("signup")}
             </button>
@@ -183,7 +184,7 @@ function Register() {
         <div className="text-sm text-center">
           <span className="text-gray-600">{t('you_got_account')}</span>
           <Link to="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
-            &nbsp;{t('login')}
+            &nbsp;{t('loginTopage')}
           </Link>
         </div>
       </div>
