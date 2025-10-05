@@ -13,6 +13,7 @@ import ThreadInfoPage from "./pages/ThreadInfoPage";
 import LanguageSwitcher from "./contexts/LanguageSwitcher";
 import LogoSection from "./components/LogoSection";
 import NotificationBell from "./components/NotificationBell";
+import Footer from "./components/Footer";
 import { Verify } from "crypto";
 import { useTranslation } from "react-i18next";
 
@@ -57,7 +58,7 @@ function App() {
       </header>
 
 
-      <main>
+      <main className="flex-grow">
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/notice" element={<NoticePage />} />
@@ -71,6 +72,9 @@ function App() {
           <Route path="/verify/:token" element={<VerifyPage />} />
         </Routes>
       </main>
+
+      <Footer />
+      
     </div>
   );
 }
