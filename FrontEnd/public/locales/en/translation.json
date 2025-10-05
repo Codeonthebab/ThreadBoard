@@ -12,6 +12,7 @@
   "logout": "Logout",
   "login_toppage": "Going to login",
   "signup": "Sign-up",
+  "submitting_register": "Putting membership information in DB...",
   "id": "ID",
   "password": "Password",
   "welcomeuser": "! Welcome!",

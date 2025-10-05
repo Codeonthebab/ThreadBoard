@@ -12,6 +12,7 @@
   "logout": "ローグアウト",
   "login_toppage": "ログインしに行く",
   "signup": "会員登録",
+  "submitting_register" : "DBに会員情報を入れているところ…",
   "id": "アイディー",
   "password": "パスワード",
   "welcomeuser": "様! ようこそ!",

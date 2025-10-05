@@ -12,6 +12,7 @@
     "login_toppage": "로그인하러 가기",
     "logout": "로그아웃",
     "signup": "회원가입",
+    "submitting_register" : "DB에 회원 정보 넣는 중..",
     "id": "아이디",
     "password": "비밀번호",
     "welcomeuser": "님! 환영합니다!",
