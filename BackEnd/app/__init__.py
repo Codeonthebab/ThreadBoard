@@ -26,9 +26,9 @@ def create_app(config_class=Config):
     bcrypt.init_app(app)
     migrate.init_app(app, db)
 
-    # Bender에서 portgre DB 연결, 테이블 생성
-    with app.app_context():
-        db.create_all()
+    # Render에서 portgre DB 연결, 테이블 생성 >>> SuperBase_PostgreSQL로 변경했으니 주석처리
+    #with app.app_context():
+    #    db.create_all()
 
     # 블루프린트(routes) 등록
     app.register_blueprint(auth_bp)
