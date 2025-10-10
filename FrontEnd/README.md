@@ -68,3 +68,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+### Render_Postgre SQL backup >>> SuperBase DB_PostgreSQL backup
+
+***무료 플랜의 한계로 더이상 버틸 수 없었기에 수퍼베이스로 변경
