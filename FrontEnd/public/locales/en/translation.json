@@ -49,5 +49,7 @@
   "no_notifications" : "No notifications.",
   "commented_on_your_thread" : ", commented on your thread.",
   "Mini_Game": "Mini Game",
-  "Your_memory_game": "It's perfect to kill time."
+  "Your_memory_game": "It's perfect to kill time.",
+  "Comming_soon_game": "Please look forward to other games~",
+  "Back_to_GameSelected": "Back to the list of games"
 }

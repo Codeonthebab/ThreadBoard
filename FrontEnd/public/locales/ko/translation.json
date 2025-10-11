@@ -51,5 +51,7 @@
     "no_notifications" : "알림이 없습니다.",
     "commented_on_your_thread" : "님이 회원님의 스레드에 댓글을 남겼습니다.",
     "Mini_Game" : "미니 게임",
-    "your_memory_game" : "시간 때우기 딱 좋아~"
+    "your_memory_game" : "시간 때우기 딱 좋아~",
+    "Comming_soon_game": "다른 게임도 기대해주세요~",
+    "Back_to_GameSelected": "게임 목록으로 돌아가기"
 }
