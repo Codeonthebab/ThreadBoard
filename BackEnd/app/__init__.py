@@ -1,10 +1,8 @@
 from flask import Flask 
 from flask_cors import CORS
-"""config, extensions에서 설정 및 확장 모듈 불러오기"""
+#config, extensions에서 설정 및 확장 모듈 불러오기
 from config import Config
 from .extensions import db, bcrypt, migrate
-
-"""블루프린트 객체들 소환"""
 from .routes.auth import auth_bp
 from .routes.threads import threads_bp
 from .routes.notifications import notifications_bp
