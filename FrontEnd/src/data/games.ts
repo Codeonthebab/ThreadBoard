@@ -1,0 +1,47 @@
+// 게임목록 소환!
+
+export interface Game {
+    id: string;
+    title: string;
+    swfUrl: string;
+    thumbnailUrl: string;
+    type: 'flash' | 'phaser';
+}
+
+export const games : Game [] = [
+    {
+        id: "bubble-puzzle",
+        title: "버블 버블",
+        swfUrl: "/games/puzzle.swf",
+        thumbnailUrl: "/thumbnails/bubble.jpg",
+        type: "flash",
+    },
+    {
+        id: "tusukani",
+        title: "투스카니 레이싱",
+        swfUrl: "/games/tusukani_racing.swf",
+        thumbnailUrl: "/thumbnails/tusukani.png",
+        type: "flash",
+    },
+    {
+        id: "gogunbuntu",
+        title: "고군분투",
+        swfUrl: "/games/gogunbuntuEN.swf",
+        thumbnailUrl: "/thumbnails/gogunbuntu.png",
+        type: "flash",
+    },
+    {
+        id: "dadnme",
+        title: "아빠와 나",
+        swfUrl: "/games/dadnme.swf",
+        thumbnailUrl: "/thumbnails/dadnme.jpg",
+        type: "flash",
+    },
+    {
+        id: "pokemon",
+        title: "포KE몬",
+        swfUrl: "/games/trainercreator.swf",
+        thumbnailUrl: "/thumbnails/pokemon.png",
+        type: "flash",
+    },
+];
