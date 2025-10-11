@@ -14,6 +14,7 @@ import LanguageSwitcher from "./contexts/LanguageSwitcher";
 import LogoSection from "./components/LogoSection";
 import NotificationBell from "./components/NotificationBell";
 import GamePage from "./pages/GamePage";
+import GamePlayerPage from "./pages/GamePlayerPage";
 import Footer from "./components/Footer";
 import { Verify } from "crypto";
 import { useTranslation } from "react-i18next";
@@ -72,6 +73,7 @@ function App() {
           <Route path="/threads/latest" element={<LatestThreadsPage />} />
           <Route path="/threads/:thread_id" element={<ThreadInfoPage />} />
           <Route path="/games" element={<GamePage />} />
+          <Route path="/games/:gameId" element={<GamePlayerPage />} />
           {/* 나중에 상세 보드 보기 페이지 추가할 것 */}
           <Route path="/signup" element={<Register />} />
           <Route path="/login" element={<LoginPage />} />
