@@ -9,6 +9,7 @@
   "login_failed" : "Login failed",
   "submitting_to_login": "Logging in...",
   "None_account" : "Don't you have an account?",
+  "Nomemory_Password": "Did you forget your password?",
   "logout": "Logout",
   "login_toppage": "Going to login",
   "signup": "Sign-up",

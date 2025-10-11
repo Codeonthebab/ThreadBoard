@@ -9,6 +9,7 @@
   "login_failed" : "ログインに失敗しました。",
   "submitting_to_login" : "ログイン中..",
   "None_account" : "アカウントをお持ちではありませんか？",
+  "Nomemory_Password" : "パスワードを忘れましたか？",
   "logout": "ローグアウト",
   "login_toppage": "ログインしに行く",
   "signup": "会員登録",

@@ -8,6 +8,7 @@
     "login": "로그인",
     "submitting_to_login" : "로그인 중..",
     "None_account" : "계정이 없으신가요?",
+    "Nomemory_Password" : "비밀번호를 잊어버리셨나요?",
     "login_failed" : "로그인에 실패했습니다.",
     "login_toppage": "로그인하러 가기",
     "logout": "로그아웃",
