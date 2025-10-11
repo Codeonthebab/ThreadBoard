@@ -52,5 +52,6 @@
   "your_memory_game" : "暇つぶしにちょうどいい~",
   "Comming_soon_game": "他のゲームも期待してください~",
   "Back_to_GameSelected": "ゲームリストに戻る",
-  "games_page":"ミニゲーム天国"
+  "games_page":"ミニゲーム天国",
+  "None_game" : "ゲームが見つかりません！ 😖"
 }
