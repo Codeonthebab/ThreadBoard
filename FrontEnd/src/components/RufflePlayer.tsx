@@ -1,5 +1,11 @@
 import React, { useRef, useEffect } from 'react';
 
+declare global {
+    interface Window {
+        RufflePlayer: any;
+    }
+}
+
 interface RufflePlayerProps {
     swfUrl : string;
 }
@@ -8,25 +14,28 @@ const RufflePlayer: React.FC <RufflePlayerProps> = ({ swfUrl }) => {
     
     //Ruffle 컨테이너
     const containerRef = useRef <HTMLDivElement> (null);
+    const playerRef = useRef <any> (null);
 
     useEffect (() => {
-        // 플레이어 인스턴스 저장할 변수
-        let player : any = null;
-        const ruffle = (window as any).RufflePlayer;
 
-        if (ruffle && containerRef.current) {
-            player = ruffle.newest().createPlayer();
+        if (window.RufflePlayer && containerRef.current) {
+            const ruffle = window.RufflePlayer.newest();
+            const player = ruffle.createPlayer();
+
+            // player 인스턴스 ref에 저장
+            playerRef.current = player;
+
             const container = containerRef.current;
-
             container.innerHTML= '';
             container.appendChild(player);
             player.load(swfUrl);
         }
-
+        // 컴포넌트 없어지면 뒷정리하게끔 (clean-up)
         return () => {
-            // 컴포넌트 없어지면 뒷정리하게끔 (clean-up)
-            if (player) {
-                player.remove();
+            
+            if (playerRef.current && typeof playerRef.current.destroy === 'function') {
+                playerRef.current.destroy();
+                playerRef.current=null;
             }
         };
     }, [swfUrl]); // swfUrl 갱신될 때마다 플레이어 다시 불러오게끔
