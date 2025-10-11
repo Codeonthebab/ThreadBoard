@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import RufflePlayer from "../components/RufflePlayer";
 
 interface Game {
   id: string;
@@ -55,11 +56,7 @@ const GamePage: React.FC = () => {
   const renderGamePlayer = (game: Game) => {
     // 플래시 게임 선택 시
     if (game.type === "flash") {
-      return (
-        <object width="800" height="600">
-          <param name="movie" value={game.swfUrl} />
-        </object>
-      );
+      return <RufflePlayer swfUrl={game.swfUrl} />
     }
 
     // 나중에 Phaser로 만들 랜더링 로직 부분
