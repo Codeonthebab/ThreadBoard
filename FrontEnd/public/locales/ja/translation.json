@@ -47,5 +47,6 @@
   "submit_comment" : "コメントを残す",
   "notifications" : "通知リスト",
   "no_notifications" : "通知がありません。",
-  "commented_on_your_thread" : "があなたのスレッドにコメントしました。"
+  "commented_on_your_thread" : "があなたのスレッドにコメントしました。",
+  "Mini_Game" : "ミニゲーム"
 }

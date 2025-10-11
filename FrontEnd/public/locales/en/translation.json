@@ -47,5 +47,6 @@
   "submit_comment" : "Submit Comments",
   "notifications" : "Notification list",
   "no_notifications" : "No notifications.",
-  "commented_on_your_thread" : ", commented on your thread."
+  "commented_on_your_thread" : ", commented on your thread.",
+  "Mini_Game": "Mini Game"
 }
