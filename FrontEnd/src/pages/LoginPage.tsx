@@ -132,13 +132,19 @@ function LoginPage() {
 
         </form>
 
+        {/* 회원 정보(비번, 아디) 조회 필드 */}
+        <div className="text-sm text-center">
+          <span className="text-gray-600">{t('Nomemory_Password')}</span>
+           &nbsp; 비밀번호 조회
+        </div>
+
         {/* 회원가입 링크 필드 */}
         <div className="text-sm text-center">
           <span className="text-gray-600">{t('None_account')}</span>
           <Link to ="/signup" 
           className="font-medium text-indigo-600 
           hover:text-indigo-500">
-            {t('signup')}
+            &nbsp; {t('signup')}
           </Link>
         </div>
 
