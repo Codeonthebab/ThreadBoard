@@ -180,3 +180,39 @@ def token_required(f):
         return f(current_user, *args, **kwargs)
     return decorated_function
 
+
+# 비밀번호 재설정 요청 API
+@auth_bp.route('/request-password-reset', methods=['POST'])
+def request_password_reset():
+    data = request.get_json()
+    email = data.get('email')
+
+    user = User.query.filter_by(email=email).first()
+
+    # 사용자가 존재하지 않으면, 성공 메세지 반환
+    if user :
+        # 임시 토큰
+        serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
+        token = serializer.dumps(email, salt=current_app.config['SECURITY_PASSWORD_SALT'])
+
+        # 이메일 내용
+        reset_url = f"https://thread-board.vercel.app/reset-password/{token}"
+        
+        # sendgrid 이메일 발송 관련
+        message = Mail(
+            from_email=os.environ.get('MAIL_USERNAME'), #환경변수에 메세지 보낼 이메일 Render에 설정
+            to_emails=email,
+            subject='[ThreadBoard] 비밀번호 재설정 안내 메일',
+            html_content=f"<p> 비밀번호 재설정을 위해 아래 링크를 클릭해주세요! </p> <br> <p> <a href='{reset_url}'>{reset_url}</a></p><br> 이 링크는 1시간 동안 유효합니다. 1시간 이내에 비밀번호 수정하여야만 합니다."
+        )
+
+        try :
+            sendgrid_client = SendGridAPIClient(current_app.config['SENDGRID_API_KEY'])
+            sendgrid_client.send(message)
+
+        except Exception as e:
+            current_app.logger.error(f"SendGrid Error: {e}")
+            return jsonify({"Error": "이메일 발송 중 오류가 발생했습니다."}), 500
+        
+    return jsonify({"message": "비밀번호 재설정 링크가 이메일로 발송되었습니다. 이메일을 확인해주세요."}), 200
+
