@@ -31,7 +31,7 @@ pnpm-debug.log*
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?
+#*.sw?
 
 # Operating system generated files
 # macOS 시스템 파일
