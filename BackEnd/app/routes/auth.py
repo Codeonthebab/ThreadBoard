@@ -3,11 +3,11 @@ from functools import wraps
 import datetime
 import jwt
 import os
-from itsdangerous import URLSafeTimedSerializer, SignatureExpired
+from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadTimeSignature
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
-"""db, bcrypt, s 객체들과 USER 모델 불러오기"""
+#db, bcrypt, s 객체들과 USER 모델 불러오기
 from ..extensions import db, bcrypt
 from ..models import User
 
@@ -216,3 +216,38 @@ def request_password_reset():
         
     return jsonify({"message": "비밀번호 재설정 링크가 이메일로 발송되었습니다. 이메일을 확인해주세요."}), 200
 
+# 비밀번호 재설정 API
+@auth_bp.route('/reset-password/<token>', methods=['POST'])
+def reset_password(token):
+    data = request.get_json()
+    new_password = data.get('password')
+
+    if not new_password:
+        return jsonify({'error': '새 비밀번호를 입력해주세요.'}), 400
+    
+    serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
+
+    try :
+        # Token 검증 시간 설정하기
+        email = serializer.loads(
+            token,
+            salt = current_app.config['SECURITY_PASSWORD_SALT'],
+            max_age=3600
+        )
+
+    except SignatureExpired:
+        return jsonify({'error': '비밀번호 재설정 링크가 만료되었습니다. 다시 요청해주세요.'}), 400
+    except (BadTimeSignature, Exception) :
+        return jsonify({'error': '유효하지 않은 비밀번호 재설정 링크입니다.'}), 400
+    
+    user = User.query.filter_by(email=email).first()
+
+    if not user:
+        return jsonify({'error': '사용자를 찾을 수 없습니다.'}), 404
+    
+    # 새로운 비밀번호 해싱
+    hashed_password = bcrypt.generate_password_hash(new_password).decode('utf-8')
+    user.password = hashed_password
+    db.session.commit()
+
+    return jsonify({'message': '비밀번호가 성공적으로 재설정되었습니다.'}), 200
