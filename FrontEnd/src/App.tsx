@@ -1,6 +1,7 @@
+import { useTranslation } from "react-i18next";
 import { Routes, Route, Link } from "react-router-dom";
-import LoginState from "./components/LoginState";
 import "./App.css";
+import LoginState from "./components/LoginState";
 import InsertThread from "./pages/insertThread";
 import Register from "./pages/RegisterPage";
 import MainPage from "./pages/MainPage";
@@ -16,8 +17,8 @@ import NotificationBell from "./components/NotificationBell";
 import GamePage from "./pages/GamePage";
 import GamePlayerPage from "./pages/GamePlayerPage";
 import Footer from "./components/Footer";
-import { Verify } from "crypto";
-import { useTranslation } from "react-i18next";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 
 function App() {
