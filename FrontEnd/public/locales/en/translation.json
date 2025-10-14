@@ -56,5 +56,6 @@
   "Back_to_GameSelected": "Back to the list of games",
   "games_page": "mini game heaven",
   "None_game": "Can't find the game! 😖",
-  "Check_your_email_for_password_reset_link": "Check your email for a password reset link."
+  "Check_your_email_for_password_reset_link": "Check your email for a password reset link.",
+  "Failed_to_request_password_reset": "Failed to request password reset."
 }

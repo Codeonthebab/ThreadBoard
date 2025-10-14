@@ -58,5 +58,6 @@
     "Back_to_GameSelected": "게임 목록으로 돌아가기",
     "games_page": "미니 게임 천국",
     "None_game" : "게임을 찾을 수 없어요! 😖",
-    "Check_your_email_for_password_reset_link" : "비밀번호 재설정 링크가 포함된 이메일을 확인하세요."
+    "Check_your_email_for_password_reset_link" : "비밀번호 재설정 링크가 포함된 이메일을 확인하세요.",
+    "Failed_to_request_password_reset" : "비밀번호 재설정 요청에 실패했습니다."
 }

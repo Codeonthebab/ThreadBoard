@@ -56,5 +56,6 @@
   "Back_to_GameSelected": "ゲームリストに戻る",
   "games_page":"ミニゲーム天国",
   "None_game" : "ゲームが見つかりません！ 😖",
-  "Check_your_email_for_password_reset_link" : "パスワードリセットリンクが含まれたメールを確認してください。"
+  "Check_your_email_for_password_reset_link" : "パスワードリセットリンクが含まれたメールを確認してください。",
+  "Failed_to_request_password_reset" : "パスワードリセットのリクエストに失敗しました。"
 }
