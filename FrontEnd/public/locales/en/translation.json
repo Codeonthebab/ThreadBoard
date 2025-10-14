@@ -57,5 +57,6 @@
   "games_page": "mini game heaven",
   "None_game": "Can't find the game! 😖",
   "Check_your_email_for_password_reset_link": "Check your email for a password reset link.",
-  "Failed_to_request_password_reset": "Failed to request password reset."
+  "Failed_to_request_password_reset": "Failed to request password reset.",
+  "password_reset_guide": "If you enter the email address you used when signing up, we will send you an email with a password reset link."
 }
