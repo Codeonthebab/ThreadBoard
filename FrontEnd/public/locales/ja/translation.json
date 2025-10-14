@@ -55,5 +55,6 @@
   "Comming_soon_game": "他のゲームも期待してください~",
   "Back_to_GameSelected": "ゲームリストに戻る",
   "games_page":"ミニゲーム天国",
-  "None_game" : "ゲームが見つかりません！ 😖"
+  "None_game" : "ゲームが見つかりません！ 😖",
+  "Check_your_email_for_password_reset_link" : "パスワードリセットリンクが含まれたメールを確認してください。"
 }
