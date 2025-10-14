@@ -79,6 +79,8 @@ function App() {
           <Route path="/signup" element={<Register />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/verify/:token" element={<VerifyPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
         </Routes>
       </main>
 
