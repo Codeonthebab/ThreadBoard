@@ -15,6 +15,7 @@
   "signup": "Sign-up",
   "submitting_register": "Putting membership information in DB...",
   "you_got_account": "Do you already have an account?",
+  "forgot_password" : "Did you forget your password?",
   "id": "ID",
   "password": "Password",
   "welcomeuser": "! Welcome!",
