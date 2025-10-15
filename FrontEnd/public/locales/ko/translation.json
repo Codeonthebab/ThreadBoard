@@ -63,6 +63,6 @@
     "Failed_to_request_password_reset" : "비밀번호 재설정 요청에 실패했습니다.",
     "password_reset_guide" : "가입 시 사용한 이메일 주소를 입력하면 비밀번호 재설정 링크가 포함된 이메일을 보내드립니다.",
     "submitting_Email" : "이메일 전송 중...",
-    "submit_reset_link" : "재설정 링크 전송"
-
+    "submit_reset_link" : "재설정 링크 전송",
+    "Passwords_do_not_match" : "비밀번호가 일치하지 않습니다."
 }
