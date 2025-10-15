@@ -62,5 +62,6 @@
   "password_reset_guide": "If you enter the email address you used when signing up, we will send you an email with a password reset link.",
   "submitting_Email" : "Sending Email...",
   "submit_reset_link" : "Send Reset Link",
-  "Passwords_do_not_match" : "Passwords do not match."
+  "Passwords_do_not_match" : "Passwords do not match.",
+  "new_password_set" : "New Password Set up"
 }
