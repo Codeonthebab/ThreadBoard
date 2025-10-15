@@ -8,6 +8,7 @@
   "login": "ローグイン",
   "login_failed" : "ログインに失敗しました。",
   "submitting_to_login" : "ログイン中..",
+  "submitting_to_change_password" : "パスワード変更中..",
   "None_account" : "アカウントをお持ちではありませんか？",
   "Nomemory_Password" : "パスワードを忘れましたか？",
   "logout": "ローグアウト",
@@ -63,5 +64,7 @@
   "submitting_Email" : "メール送信中...",
   "submit_reset_link" : "リセットリンク送信",
   "Passwords_do_not_match" : "パスワードが一致しません。",
-  "new_password_set" : "新しいパスワード設定"
+  "new_password_set" : "新しいパスワード設定",
+  "new_password" : "新しいパスワード",
+  "confirm_new_password" : "新しいパスワード確認"
 }

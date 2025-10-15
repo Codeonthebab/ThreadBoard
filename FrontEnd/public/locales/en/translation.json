@@ -8,6 +8,7 @@
   "login": "Login",
   "login_failed" : "Login failed",
   "submitting_to_login": "Logging in...",
+  "submitting_to_change_password" : "Changing Password...",
   "None_account" : "Don't you have an account?",
   "Nomemory_Password": "Did you forget your password?",
   "logout": "Logout",
@@ -63,5 +64,7 @@
   "submitting_Email" : "Sending Email...",
   "submit_reset_link" : "Send Reset Link",
   "Passwords_do_not_match" : "Passwords do not match.",
-  "new_password_set" : "New Password Set up"
+  "new_password_set" : "New Password Set up",
+  "new_password" : "New Password",
+  "confirm_new_password" : "Confirm New Password"
 }

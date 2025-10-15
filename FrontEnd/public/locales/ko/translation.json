@@ -7,6 +7,7 @@
     "create_thread": "스레드 추가",
     "login": "로그인",
     "submitting_to_login" : "로그인 중..",
+    "submitting_to_change_password" : "비밀번호 변경 중..",
     "None_account" : "계정이 없으신가요?",
     "Nomemory_Password" : "비밀번호를 잊어버리셨나요?",
     "login_failed" : "로그인에 실패했습니다.",
@@ -65,5 +66,7 @@
     "submitting_Email" : "이메일 전송 중...",
     "submit_reset_link" : "재설정 링크 전송",
     "Passwords_do_not_match" : "비밀번호가 일치하지 않습니다.",
-    "new_password_set" : "새 비밀번호 설정"
+    "new_password_set" : "새 비밀번호 설정",
+    "new_password" : "새 비밀번호",
+    "confirm_new_password" : "새 비밀번호 확인"
 }
