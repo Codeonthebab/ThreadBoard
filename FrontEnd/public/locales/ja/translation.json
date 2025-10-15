@@ -59,5 +59,7 @@
   "None_game" : "ゲームが見つかりません！ 😖",
   "Check_your_email_for_password_reset_link" : "パスワードリセットリンクが含まれたメールを確認してください。",
   "Failed_to_request_password_reset" : "パスワードリセットのリクエストに失敗しました。",
-  "password_reset_guide" : "登録時に使用したメールアドレスを入力すると、パスワードリセットリンクが含まれたメールを送信します。"
+  "password_reset_guide" : "登録時に使用したメールアドレスを入力すると、パスワードリセットリンクが含まれたメールを送信します。",
+  "submitting_Email" : "メール送信中...",
+  "submit_reset_link" : "リセットリンク送信"
 }
