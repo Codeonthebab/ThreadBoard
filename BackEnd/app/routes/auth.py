@@ -6,6 +6,7 @@ import os
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadTimeSignature
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
+from python_http_client.exceptions import HTTPError # SendGrid 오류 처리용
 
 #db, bcrypt, s 객체들과 USER 모델 불러오기
 from ..extensions import db, bcrypt
@@ -209,6 +210,14 @@ def request_password_reset():
         try :
             sendgrid_client = SendGridAPIClient(current_app.config['SENDGRID_API_KEY'])
             sendgrid_client.send(message)
+            
+        # SendGrid에서 오류 발생 시
+            response = sendgrid_client.send(message)
+            if response.status_code >= 400:
+                current_app.logger.error(f"SendGrid API Error: {response.status_code} {response.body}")
+        # SendGrid 라이브러리 오류 확인 및 처리
+        except HTTPError as e:
+            current_app.logger.error(f"SendGrid HTTP Error: {e.status_code} {e.body}")
 
         except Exception as e:
             current_app.logger.error(f"SendGrid Error: {e}")
