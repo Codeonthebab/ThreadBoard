@@ -188,41 +188,53 @@ def request_password_reset():
     data = request.get_json()
     email = data.get('email')
 
+    if not email :
+        return jsonify({"error": "이메일을 입력해주세요."}), 400
+    
     user = User.query.filter_by(email=email).first()
 
-    # 사용자가 존재하지 않으면, 성공 메세지 반환
+    # 사용자가 존재할 경우에만 이메일 발송 시도
     if user :
-        # 임시 토큰
-        serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
-        token = serializer.dumps(email, salt=current_app.config['SECURITY_PASSWORD_SALT'])
-
-        # 이메일 내용
-        reset_url = f"https://thread-board.vercel.app/reset-password/{token}"
-        
-        # sendgrid 이메일 발송 관련
-        message = Mail(
-            from_email=os.environ.get('MAIL_USERNAME'), #환경변수에 메세지 보낼 이메일 Render에 설정
-            to_emails=email,
-            subject='[ThreadBoard] 비밀번호 재설정 안내 메일',
-            html_content=f"<p> 비밀번호 재설정을 위해 아래 링크를 클릭해주세요! </p> <br> <p> <a href='{reset_url}'>{reset_url}</a></p><br> 이 링크는 1시간 동안 유효합니다. 1시간 이내에 비밀번호 수정하여야만 합니다."
-        )
-
         try :
+            # 임시 토큰
+            serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
+            token = serializer.dumps(email, salt=current_app.config['SECURITY_PASSWORD_SALT'])
+
+            # 이메일 내용
+            reset_url = f"https://thread-board.vercel.app/reset-password/{token}"
+        
+            # sendgrid 이메일 발송 관련
+            message = Mail(
+                from_email=os.environ.get('MAIL_USERNAME'), #환경변수에 메세지 보낼 이메일 Render에 설정
+                to_emails=email,
+                subject='[ThreadBoard] 비밀번호 재설정 안내 메일',
+                html_content=f"<p> 비밀번호 재설정을 위해 아래 링크를 클릭해주세요! </p> <br> <p> <a href='{reset_url}'>{reset_url}</a></p><br> 이 링크는 1시간 동안 유효합니다. 1시간 이내에 비밀번호 수정하여야만 합니다."
+            )
+
+            # Sendgrid 클라이언트 초기화 및 API 키 설정
             sendgrid_client = SendGridAPIClient(current_app.config['SENDGRID_API_KEY'])
-            sendgrid_client.send(message)
+            response = sendgrid_client.send(message)            
+
+            # 응답 코드 200번대 아닌 경우 에러 처리
+            if response.status_code < 200 or response.status_code >= 300:
+                current_app.logger.error(f"SendGrid API Error (200번대 에러) : {response.status_code} {response.body}")
+                # 응답코드가 200번대 아니면 강제로 예외 발생시켜 Exception 블록으로 처리
+                raise Exception(f"SendGrid API Error: Status {response.status_code}")
             
-        # SendGrid에서 오류 발생 시
-            response = sendgrid_client.send(message)
-            if response.status_code >= 400:
-                current_app.logger.error(f"SendGrid API Error: {response.status_code} {response.body}")
+            return jsonify({"message": "비밀번호 재설정 링크가 이메일로 발송되었습니다. 이메일을 확인해주세요."}), 200
+
         # SendGrid 라이브러리 오류 확인 및 처리
         except HTTPError as e:
             current_app.logger.error(f"SendGrid HTTP Error: {e.status_code} {e.body}")
+            return jsonify({"Error" : "이메일 발송 서비스(SendGrid)에서 오류가 발생했습니다."}), 500
 
         except Exception as e:
-            current_app.logger.error(f"SendGrid Error: {e}")
-            return jsonify({"Error": "이메일 발송 중 오류가 발생했습니다."}), 500
+            current_app.logger.error(f"Exception occurred during password reset email Sending Error: {e}")
+            db.session.rollback()
+            return jsonify({"Error": "이메일 발송 중 서버 내부의 오류가 발생했습니다."}), 500
         
+    # 보안상의 이유로 사용자가 없더라도 보안상 동일한 성공 응답 반환 (메일 발송 안됨)
+    # 이를 통해 사용자가 존재하는지 여부를 공격자가 알 수 없도록 함
     return jsonify({"message": "비밀번호 재설정 링크가 이메일로 발송되었습니다. 이메일을 확인해주세요."}), 200
 
 # 비밀번호 재설정 API
