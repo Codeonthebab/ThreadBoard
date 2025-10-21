@@ -19,6 +19,7 @@ import GamePlayerPage from "./pages/GamePlayerPage";
 import Footer from "./components/Footer";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import WeatherWidget from "./components/WeatherWidget";
 
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
         </nav>
 
         <div className="header-right">
+        <WeatherWidget />
         <NotificationBell />
         <LoginState />
         <LanguageSwitcher />
