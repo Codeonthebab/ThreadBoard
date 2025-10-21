@@ -66,5 +66,6 @@
   "Passwords_do_not_match" : "Passwords do not match.",
   "new_password_set" : "New Password Set up",
   "new_password" : "New Password",
-  "confirm_new_password" : "Confirm New Password"
+  "confirm_new_password" : "Confirm New Password",
+  "Weather_loading" : "Loading weather information..."
 }

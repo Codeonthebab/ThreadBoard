@@ -68,5 +68,6 @@
     "Passwords_do_not_match" : "비밀번호가 일치하지 않습니다.",
     "new_password_set" : "새 비밀번호 설정",
     "new_password" : "새 비밀번호",
-    "confirm_new_password" : "새 비밀번호 확인"
+    "confirm_new_password" : "새 비밀번호 확인",
+    "Weather_loading" : "날씨 불러오는 중..."
 }

@@ -66,5 +66,6 @@
   "Passwords_do_not_match" : "パスワードが一致しません。",
   "new_password_set" : "新しいパスワード設定",
   "new_password" : "新しいパスワード",
-  "confirm_new_password" : "新しいパスワード確認"
+  "confirm_new_password" : "新しいパスワード確認",
+  "Weather_loading" : "天気情報を読み込んでいます..."
 }
