@@ -283,7 +283,8 @@ def reset_password(token):
 
     except SignatureExpired:
         return jsonify({'error': '비밀번호 재설정 링크가 만료되었습니다. 다시 요청해주세요.'}), 400
-    except (BadTimeSignature, Exception) :
+    except (BadTimeSignature, Exception) as e:
+        current_app.logger.error(f"비밀번호 재설정 토큰 에러 : {e}")
         return jsonify({'error': '유효하지 않은 비밀번호 재설정 링크입니다.'}), 400
     
     user = User.query.filter_by(email=email).first()
