@@ -7,6 +7,7 @@ from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadTimeSignat
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from python_http_client.exceptions import HTTPError # SendGrid 오류 처리용
+from sqlalchemy.exc import IntegrityError # DB 중복 오류 처리 용
 
 #db, bcrypt, s 객체들과 USER 모델 불러오기
 from ..extensions import db, bcrypt
@@ -281,20 +282,33 @@ def reset_password(token):
             max_age=3600
         )
 
+        user = User.query.filter_by(email=email).first()
+
+        if not user:
+            return jsonify({'error': '사용자를 찾을 수 없습니다.'}), 404
+        
+        # 새로운 비밀번호 해싱
+        hashed_password = bcrypt.generate_password_hash(new_password).decode('utf-8')
+        user.password = hashed_password
+        db.session.commit()
+
     except SignatureExpired:
+        db.session.rollback()
         return jsonify({'error': '비밀번호 재설정 링크가 만료되었습니다. 다시 요청해주세요.'}), 400
+    
     except (BadTimeSignature, Exception) as e:
+        db.session.rollback()
         current_app.logger.error(f"비밀번호 재설정 토큰 에러 : {e}")
         return jsonify({'error': '유효하지 않은 비밀번호 재설정 링크입니다.'}), 400
-    
-    user = User.query.filter_by(email=email).first()
 
-    if not user:
-        return jsonify({'error': '사용자를 찾을 수 없습니다.'}), 404
+    except IntegrityError as e:
+        db.session.rollback()
+        current_app.logger.error(f"비밀번호 재설정 도중 DB 무결성 오류가 발생 : {e}")
+        return jsonify({'error' : '새 비밀번호가 너무 짧거나 유효하지 않습니다.'}), 400
     
-    # 새로운 비밀번호 해싱
-    hashed_password = bcrypt.generate_password_hash(new_password).decode('utf-8')
-    user.password = hashed_password
-    db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        current_app.logger.error(f"비밀번호 재설정 도중 알 수 없는 오류 발생 : {e}")
+        return jsonify({'error': '비밀번호 재설정 중 서버 내부 오류가 발생했습니다.'}), 500
 
     return jsonify({'message': '비밀번호가 성공적으로 재설정되었습니다.'}), 200
