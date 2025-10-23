@@ -182,7 +182,7 @@ def token_required(f):
     return decorated_function
 
 
-# 비밀번호 재설정 요청 API
+# 비밀번호 재설정 요청 이메일 보내는 API
 @auth_bp.route('/request-password-reset', methods=['POST'])
 def request_password_reset():
     data = request.get_json()
@@ -260,8 +260,20 @@ def reset_password(token):
         return jsonify({'error': '새 비밀번호를 입력해주세요.'}), 400
     
     serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
-
+    
     try :
+        # get 메소드로 변수 읽어서 로그 남김 : SendGrid 설정값 확인
+        # FLASK_APP 환경변수 설정값을 못읽고 있어서 로그로 확인
+        # current_app.config.get('SECURITY_PASSWORD_SALT')
+        # =>>>     os.environ.get 메소드로 읽도록 변경
+        salt = os.environ.get('SECURITY_PASSWORD_SALT')
+        if not salt:
+            current_app.logger.error(
+                "os.environ.get method로 읽기 실패했습니다."
+                "랜더 환경변수 설정을 다시하고 다시 재배포 해주세요."
+                )
+            raise ValueError("SECURITY_PASSWORD_SALT 환경 변수 설정이 필요해.")
+
         # Token 검증 시간 설정하기
         email = serializer.loads(
             token,
