@@ -277,7 +277,7 @@ def reset_password(token):
         # Token 검증 시간 설정하기
         email = serializer.loads(
             token,
-            salt = current_app.config['SECURITY_PASSWORD_SALT'],
+            salt = salt,
             max_age=3600
         )
 
