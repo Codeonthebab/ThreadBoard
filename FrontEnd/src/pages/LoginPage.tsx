@@ -49,8 +49,9 @@ function LoginPage() {
         navigate("/");
       } else {
         // 응답 실패 시 에러 메세지
-        setError((data as LoginErrorResponse).error);
-        setError(t("login_failed"));
+        const errorMessage = 
+        (data as LoginErrorResponse).error || t("login_failed");
+        setError(errorMessage);
       }
     } catch (err) {
       console.error("로그인 요청 실패 : ", err);
