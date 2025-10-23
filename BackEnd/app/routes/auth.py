@@ -198,11 +198,14 @@ def request_password_reset():
         try :
 
             # get 메소드로 변수 읽어서 로그 남김 : SendGrid 설정값 확인
-            salt = current_app.config.get('SECURITY_PASSWORD_SALT')
+            # FLASK_APP 환경변수 설정값을 못읽고 있어서 로그로 확인
+            # current_app.config.get('SECURITY_PASSWORD_SALT')
+            # =>>>     os.environ.get 메소드로 읽도록 변경
+            salt = os.environ.get('SECURITY_PASSWORD_SALT')
             if not salt:
                 current_app.logger.error(
-                    "SECURITY_PASSWORD_SALT 환경변수 설정 or 비어있습니다. 비밀번호 재설정 이메일을 보낼 수 없습니다."
-
+                    "os.environ.get method로 읽기 실패했습니다."
+                    "랜더 환경변수 설정을 다시하고 다시 재배포 해주세요."
                 )
                 raise ValueError("SECURITY_PASSWORD_SALT 환경 변수 설정이 필요해.")
 
