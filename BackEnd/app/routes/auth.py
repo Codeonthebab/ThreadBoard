@@ -86,7 +86,7 @@ def register():
         db.session.rollback()
        
         # 에러 객체 로그, 상세한 내용 출력
-        print(f"An exception of type {type(e).__name__} occurred: {e}")
+        print(f"에러 객체 종류 : {type(e).__name__} 에러 : {e}")
         # 에러내용의 핵심 메세지 출력 시키는거
         if hasattr(e, 'body'):
             print(f"Error Body: {e.body}")
@@ -196,9 +196,19 @@ def request_password_reset():
     # 사용자가 존재할 경우에만 이메일 발송 시도
     if user :
         try :
+
+            # get 메소드로 변수 읽어서 로그 남김 : SendGrid 설정값 확인
+            salt = current_app.config.get('SECURITY_PASSWORD_SALT')
+            if not salt:
+                current_app.logger.error(
+                    "SECURITY_PASSWORD_SALT 환경변수 설정 or 비어있습니다. 비밀번호 재설정 이메일을 보낼 수 없습니다."
+
+                )
+                raise ValueError("SECURITY_PASSWORD_SALT 환경 변수 설정이 필요해.")
+
             # 임시 토큰
             serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
-            token = serializer.dumps(email, salt=current_app.config['SECURITY_PASSWORD_SALT'])
+            token = serializer.dumps(email, salt=salt)
 
             # 이메일 내용
             reset_url = f"https://thread-board.vercel.app/reset-password/{token}"
