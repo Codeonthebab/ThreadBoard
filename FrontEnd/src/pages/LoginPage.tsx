@@ -149,7 +149,7 @@ function LoginPage() {
           <Link to ="/forgot-password"
           className="font-medium text-indigo-600
           hover:text-indigo-500">
-           &nbsp; {t('forgot_password')}
+           {/*&nbsp; {t('forgot_password')}*/}
           </Link>
         </div>
 
