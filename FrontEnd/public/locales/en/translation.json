@@ -69,6 +69,9 @@
   "confirm_new_password" : "Confirm New Password",
   "Weather_loading" : "Loading weather information...",
   "weather_fetch_error" : "An error occurred while fetching weather information.",
-  "city_search_error" : "An error occurred while fetching city information."
-  
+  "city_search_error" : "An error occurred while fetching city information.",
+  "ciry_not_found": "City not found.",
+  "5_weather_forecast": "5-Day Weather Forecast",
+  "searching_city" : "Searching for cities",
+  "search_city": "Founding the city!"
 }

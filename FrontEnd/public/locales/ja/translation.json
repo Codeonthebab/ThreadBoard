@@ -69,5 +69,9 @@
   "confirm_new_password" : "新しいパスワード確認",
   "Weather_loading" : "天気情報を読み込んでいます...",
   "weather_fetch_error" : "天気情報の取得中にエラーが発生しました。",
-  "city_search_error" : "都市情報の取得中にエラーが発生しました。"
+  "city_search_error" : "都市情報の取得中にエラーが発生しました。",
+  "ciry_not_found": "都市が見つかりません。",
+  "5_weather_forecast": "5日間の天気予報",
+  "searching_city" : "都市検索中",
+  "search_city" : "都市を見つけました！"
 }
