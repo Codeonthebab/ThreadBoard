@@ -67,5 +67,8 @@
   "new_password_set" : "New Password Set up",
   "new_password" : "New Password",
   "confirm_new_password" : "Confirm New Password",
-  "Weather_loading" : "Loading weather information..."
+  "Weather_loading" : "Loading weather information...",
+  "weather_fetch_error" : "An error occurred while fetching weather information.",
+  "city_search_error" : "An error occurred while fetching city information."
+  
 }

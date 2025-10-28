@@ -67,5 +67,7 @@
   "new_password_set" : "新しいパスワード設定",
   "new_password" : "新しいパスワード",
   "confirm_new_password" : "新しいパスワード確認",
-  "Weather_loading" : "天気情報を読み込んでいます..."
+  "Weather_loading" : "天気情報を読み込んでいます...",
+  "weather_fetch_error" : "天気情報の取得中にエラーが発生しました。",
+  "city_search_error" : "都市情報の取得中にエラーが発生しました。"
 }
