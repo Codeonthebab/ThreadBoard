@@ -75,5 +75,6 @@
   "searching_city" : "Searching for cities",
   "search_city": "Founding the city!",
   "loading_forecast" : "Bringing weather forecasts",
-  "weather_forecast": "🌤️ Weather Information"
+  "weather_forecast": "🌤️ Weather Information",
+  "search_city_placeholder": "Search the city! (Example: NewYork)"
 }

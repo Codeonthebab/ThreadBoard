@@ -77,5 +77,6 @@
     "searching_city" : "도시 검색 중",
     "search_city" : "도시를 찾았습니다!",
     "loading_forecast" : "날씨 예보를 가져오고 있습니다",
-    "weather_forecast" : "🌤️ 날씨 정보"
+    "weather_forecast" : "🌤️ 날씨 정보",
+    "search_city_placeholder" : "도시를 검색해보세요! (예시 : Seoul)"
 }
