@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import Modal from '../common/Modal';
+import React, { useEffect, useState, useCallback } from 'react';
+import Modal from '../common/modal';
 import { useTranslation } from 'react-i18next';
-import { init } from 'i18next';
 
 // OpenWeatherMap API 응답 구조 정의
 // 날씨 정보 응답 구조
@@ -56,19 +55,18 @@ type WeatherModalProps = {
 const API_KEY = process.env.REACT_APP_OPENWEATHER_API_KEY;
 
 // 3시간 간격 예보(40개) 데이터를 받아서 5일치 일별 요약으로 가공하는 함수 생성
-const processForecastData = ( list : WeatherForecastItem[]) : DailyForecastly[] => {
+const processForecastData = ( list : WeatherForecastItem[], language: string) : DailyForecast[] => {
     const dailyData : { [key: string] : DailyForecast } = {};
-    const { i18n } = useTranslation();
 
     list.forEach( (item) => {
-        const data = item.dt_txt.split(' ')[0]; // 'YYYY-MM-DD' 부분 추출
+        const date = item.dt_txt.split(' ')[0]; // 'YYYY-MM-DD' 부분 추출
 
-        if ( !dailyData[data] ) {
+        if ( !dailyData[date] ) {
             const dateObj = new Date(item.dt * 1000);
             dailyData[date] = {
                 date: date,
                 // 한글, 영어 로케일에 맞춰서 요일 포맷팅 처리
-                dayOfWeek : dateObj.toLocaleDateString( i18nß.language || 'ko-KR', { weekday: 'short' }),
+                dayOfWeek : dateObj.toLocaleDateString( language || 'ko-KR', { weekday: 'short' }),
                 temp_min: item.main.temp_min,
                 temp_max: item.main.temp_max,
                 // 12시를 기준으로 아이콘 사용, 설명 설정
@@ -109,7 +107,7 @@ const WeatherModal : React.FC<WeatherModalProps> = ({
     const [ error, setError ] = useState('');
 
     // 위도, 경도 기준 5일 분량 예보 
-    const fetchForecast = async ( lat: number, lon: number ) => {
+    const fetchForecast = useCallback (async ( lat: number, lon: number ) => {
         if (!API_KEY) {
             setError('OpenWeatherMap API 키가 설정되지 않았습니다.');
             return;
@@ -128,15 +126,16 @@ const WeatherModal : React.FC<WeatherModalProps> = ({
             
             const data : WeatherForecastResponse = await response.json();
             setCityName(data.city.name);
-            setForecast(processForecastData(data.list));
+            setForecast(processForecastData(data.list, i18n.language));
         } catch (err : any) {
             setError(err.message);
         } finally {
             setLoading(false);
         }
-    };
-    // 도시명으로 위도, 경도 검색 후 예보 가져오기
-    const handleSearch = async (e : React.FormEvent) => {
+    }, [i18n.language, t]);
+
+    // 도시명으로 위도, 경도 검색 후 예보 가져오기 : fetchForecast에 의존시키게끔 콜백함수
+    const handleSearch = useCallback (async (e : React.FormEvent) => {
         e.preventDefault();
         if (!query) return;
 
@@ -161,14 +160,14 @@ const WeatherModal : React.FC<WeatherModalProps> = ({
         } finally {
             setLoading(false);
         }
-    };
+    }, [query, t, fetchForecast]);
 
     // 모달 열릴 때(isOpen=true) 초기 위도, 경도 기준 예보 가져오기
     useEffect( () => {
         if ( isOpen && initialLat && initialLon ) {
             fetchForecast (initialLat, initialLon);
         }
-    }, [isOpen, initialLat, initialLon] );
+    }, [isOpen, initialLat, initialLon, fetchForecast] );
 
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
@@ -177,7 +176,7 @@ const WeatherModal : React.FC<WeatherModalProps> = ({
                 {t('weather_forecast')}
             </h3>
 
-            {/* 다른 도시 검색할 수 있게끔 도시 검색 폼*/}
+            {/* 다른 도시 검색할 수 있게끔 도시 검색 폼 */}
             <form onSubmit={handleSearch} className="flex mb-4">
                 <input
                 type="text"
@@ -193,10 +192,42 @@ const WeatherModal : React.FC<WeatherModalProps> = ({
                 >
                     {loading ? t('searching_city') : t('search_city')}
                 </button>
-
-
             </form>
-        </Modal>
-    )
 
-}
+            {/* 에러 및 로딩 상태 표시 */}
+            {error && <p className="text-sm text-center text-red-500">{error}</p>}
+            {loading && !forecast && <p>{t('loading_forecast')}...</p>}
+
+            {/* 예보 결과 표시 */}
+            {forecast && (
+                <div>
+                    <h4 className="text-lg font-bold text-center mb-3">{cityName}</h4>
+                    <div className="grid grid-cols-5 gap-2 text-center">
+                        {forecast.map((day) => (
+                            <div key={day.date} className="p-2 bg-gray-100 rounded-lg">
+                                <div className="font-semibold text-sm">{day.dayOfWeek}</div>
+                                <img
+                                src={`http://openweathermap.org/img/wn/${day.icon}@2x.png`}
+                                alt={day.description}
+                                className="w-16 h-16 mx-auto"
+                                />
+                                <div className="text-sm">
+                                    <span className="font-bold text-blue-600">
+                                        {Math.round(day.temp_min)}°
+                                    </span>
+                                    {' / '}
+                                    <span className="font-bold text-blue-600">
+                                        {Math.round(day.temp_max)}°
+                                    </span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+        </Modal>
+    );
+};
+
+export default WeatherModal;
