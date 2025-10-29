@@ -73,7 +73,7 @@
   "ciry_not_found": "City not found.",
   "5_weather_forecast": "5-Day Weather Forecast",
   "searching_city" : "Searching for cities",
-  "search_city": "Founding the city!",
+  "search_city": "🔍 Found the city!",
   "loading_forecast" : "Bringing weather forecasts",
   "weather_forecast": "🌤️ Weather Information",
   "search_city_placeholder": "Search the city! (Example: NewYork)"

@@ -73,7 +73,7 @@
   "ciry_not_found": "都市が見つかりません。",
   "5_weather_forecast": "5日間の天気予報",
   "searching_city" : "都市検索中",
-  "search_city" : "都市を見つけました！",
+  "search_city" : "🔍 都市検索",
   "loading_forecast" : "天気予報を持ってきています",
   "weather_forecast" : "🌤️ 天気情報",
   "search_city_placeholder" : "都市を検索してみてください！ (例:Tokyo)"

@@ -75,7 +75,7 @@
     "ciry_not_found": "도시를 찾을 수 없습니다.",
     "5_weather_forecast": "5일 간의 날씨 예보",
     "searching_city" : "도시 검색 중",
-    "search_city" : "도시를 찾았습니다!",
+    "search_city" : "🔍 도시 검색",
     "loading_forecast" : "날씨 예보를 가져오고 있습니다",
     "weather_forecast" : "🌤️ 날씨 정보",
     "search_city_placeholder" : "도시를 검색해보세요! (예시 : Seoul)"
