@@ -69,8 +69,9 @@ const processForecastData = ( list : WeatherForecastItem[], language: string) : 
                 dayOfWeek : dateObj.toLocaleDateString( language || 'ko-KR', { weekday: 'short' }),
                 temp_min: item.main.temp_min,
                 temp_max: item.main.temp_max,
-                // 12시를 기준으로 아이콘 사용, 설명 설정
-                icon : item.dt_txt.includes('12:00:00') ? item.weather[0].icon : list[0].weather[0].icon,
+                // (성공 : 야간 아이콘 자체(검은색 원만 뜸..)를 넣지말고 주간 아이콘만 뜨도록 수정)(실패 : 12시를 기준으로 아이콘 사용, 설명 설정)
+                // 아이콘 초기화 시켜서 오류 제거
+                icon : item.weather[0].icon,
                 description : item.weather[0].description,
             };
         } else {
